@@ -4,8 +4,8 @@ import Icon from "./Icon.astro";
 interface Sponsor {
   name: string;
   category: string;
-  icon?: string;
-  discount?: string;
+  icon: string;
+  discount: string;
 }
 
 const sponsors: Sponsor[] = [
@@ -22,50 +22,72 @@ interface Props {
   minCopies?: number;
 }
 
-const { slogan = "OUR PROUD BUSINESS SPONSORS & PARTNERS", minCopies = 2 } = Astro.props;
+const {
+  slogan = "OFFICIAL UTMFSA SPONSORS & PARTNERS",
+  minCopies = 2,
+} = Astro.props;
 ---
 
-<section class="sponsor-ribbon-container border-y border-amber-500/20 bg-stone-900/90 text-amber-50 py-10 overflow-hidden">
-  {slogan && (
-    <div class="container mx-auto px-4 mb-6 flex items-center justify-center gap-3 text-center">
-      <Icon name="star" size={16} class="text-amber-400" />
-      <span class="text-xs tracking-[0.25em] font-bold uppercase text-amber-300">{slogan}</span>
-      <Icon name="star" size={16} class="text-amber-400" />
-    </div>
-  )}
-
-  <div class="make-marquee relative flex w-full overflow-hidden" data-min-copies={minCopies}>
-    <div class="marquee-track flex items-center gap-8 whitespace-nowrap py-3">
-      {sponsors.map((sponsor) => (
-        <div class="sponsor-card inline-flex items-center gap-3.5 rounded-full border border-amber-500/30 bg-stone-950 px-6 py-3 shadow-md transition-transform hover:scale-105 hover:border-amber-400">
-          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 p-2">
-            <Icon name={sponsor.icon || "star"} size={20} />
-          </span>
-          <div class="flex flex-col text-left">
-            <span class="text-sm font-bold text-white tracking-wide">{sponsor.name}</span>
-            <span class="text-[11px] text-amber-200/70">{sponsor.category} {sponsor.discount ? `• ${sponsor.discount}` : ''}</span>
-          </div>
-        </div>
-      ))}
-    </div>
+<div class="pointer-events-none w-full bg-slate-50 text-slate-800 select-none border-y border-slate-200 py-3 overflow-hidden shadow-xs">
+  <!-- Mobile Slogan Header -->
+  <div class="mx-auto flex w-full items-center justify-center gap-1.5 px-4 pt-1 pb-3 text-center md:hidden border-b border-slate-200/60">
+    <Icon name="star" size={14} class="text-amber-500 shrink-0" />
+    <span class="px-2 text-xs font-bold uppercase tracking-wider text-slate-800">{slogan}</span>
+    <Icon name="star" size={14} class="text-amber-500 shrink-0" />
   </div>
-</section>
 
-<style>
+  <!-- Main Marquee Container -->
+  <div class="relative flex h-16 w-full items-center justify-center overflow-hidden">
+    <!-- 1. Desktop Left Text Badge with solid white background -->
+    <div class="z-30 hidden items-center justify-center gap-3 bg-slate-50 border-r border-slate-200/80 px-6 py-2 text-left md:flex shrink-0 h-full">
+      <div class="p-2 rounded-xl bg-blue-100/70 text-blue-700 shrink-0 flex items-center justify-center">
+        <Icon name="badge" size={22} />
+      </div>
+      <span class="w-fit max-w-36 shrink text-xs font-bold uppercase tracking-wider text-blue-900 leading-snug">
+        {slogan}
+      </span>
+    </div>
+
+    <!-- 2. Left Fade Gradient -->
+    <div class="z-20 hidden h-full w-24 shrink-0 bg-gradient-to-r from-slate-50 via-slate-50/90 to-transparent md:block pointer-events-none"></div>
+
+    <!-- 3. Marquee Track -->
+    <div class="make-marquee w-full overflow-hidden z-10 md:-ml-24" data-min-copies={minCopies}>
+      <div class="flex items-center whitespace-nowrap py-1">
+        {sponsors.map((sponsor) => (
+          <div class="sponsor-card inline-flex items-center gap-3.5 rounded-full border border-slate-200 bg-white px-5 py-2 shadow-xs transition-transform hover:scale-[1.02] hover:border-blue-400 mx-3 shrink-0">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-700 shrink-0 border border-blue-100">
+              <Icon name={sponsor.icon} size={18} />
+            </span>
+            <div class="flex flex-col text-left shrink-0">
+              <span class="text-sm font-bold text-slate-900 tracking-tight leading-tight">{sponsor.name}</span>
+              <span class="text-xs text-slate-500 leading-tight">
+                {sponsor.category} • <strong class="inline-block text-red-600 font-semibold px-1.5 py-0.5 rounded bg-red-50 text-[11px]">{sponsor.discount}</strong>
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 4. Right Fade Gradient Overlay -->
+    <div class="pointer-events-none absolute right-0 top-0 bottom-0 z-20 w-24 bg-gradient-to-l from-slate-50 via-slate-50/90 to-transparent"></div>
+  </div>
+</div>
+
+<style is:global>
   .make-marquee {
     overflow: hidden;
   }
-  :global(.marquee-track) {
+  .make-marquee > .marquee-track {
     display: flex;
     width: max-content;
     will-change: transform;
     animation: marquee-scroll var(--marquee-duration, 25s) linear infinite;
   }
-  :global(.marquee-unit) {
+  .make-marquee > .marquee-track > .marquee-unit {
     display: flex;
     flex-shrink: 0;
-    gap: 2rem;
-    padding-right: 2rem;
   }
   @keyframes marquee-scroll {
     from {
@@ -76,52 +98,109 @@ const { slogan = "OUR PROUD BUSINESS SPONSORS & PARTNERS", minCopies = 2 } = Ast
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    :global(.marquee-track) {
+    .make-marquee > .marquee-track {
       animation: none;
     }
   }
 </style>
 
 <script>
-  const SPEED = 40; // speed in pixels per second
+  const SPEED = 35;
+  const RESIZE_DEBOUNCE = 200;
 
-  function setupMarquee(container: HTMLElement) {
-    if (container.querySelector('.marquee-track')) return;
+  type Cleanup = () => void;
+  let cleanups: Cleanup[] = [];
 
-    const originalItems = Array.from(container.children);
+  function setupMarquee(container: HTMLElement): Cleanup | null {
+    const originalContent = document.createDocumentFragment();
+    while (container.firstChild) {
+      originalContent.appendChild(container.firstChild);
+    }
+
     const track = document.createElement('div');
     track.className = 'marquee-track';
-
-    const unit = document.createElement('div');
-    unit.className = 'marquee-unit';
-    originalItems.forEach(item => unit.appendChild(item));
-    track.appendChild(unit);
     container.appendChild(track);
 
+    let resizeTimer: number | undefined;
+    let lastUnitWidth = 0;
+    let lastViewportWidth = 0;
+
     const build = () => {
-      const unitWidth = unit.getBoundingClientRect().width;
       const viewportWidth = container.getBoundingClientRect().width;
+      if (viewportWidth <= 0) return;
+
+      const probe = document.createElement('div');
+      probe.className = 'marquee-unit';
+      probe.style.visibility = 'hidden';
+      probe.style.position = 'absolute';
+      probe.style.pointerEvents = 'none';
+      probe.appendChild(originalContent.cloneNode(true));
+      track.appendChild(probe);
+      const unitWidth = probe.getBoundingClientRect().width;
+      probe.remove();
+
       if (unitWidth <= 0) return;
 
-      const copies = Math.max(2, Math.ceil((viewportWidth + unitWidth) / unitWidth) + 1);
-      track.innerHTML = '';
-      for (let i = 0; i < copies; i++) {
-        track.appendChild(unit.cloneNode(true));
+      if (unitWidth === lastUnitWidth && viewportWidth === lastViewportWidth && track.children.length > 0) {
+        return;
+      }
+      lastUnitWidth = unitWidth;
+      lastViewportWidth = viewportWidth;
+
+      track.style.animation = 'none';
+      track.replaceChildren();
+
+      const firstUnit = document.createElement('div');
+      firstUnit.className = 'marquee-unit';
+      firstUnit.appendChild(originalContent.cloneNode(true));
+      track.appendChild(firstUnit);
+
+      const minCopies = Number(container.dataset.minCopies) || 2;
+      const copies = Math.max(minCopies, Math.ceil((viewportWidth + unitWidth) / unitWidth) + 1);
+      for (let i = 1; i < copies; i++) {
+        const unit = document.createElement('div');
+        unit.className = 'marquee-unit';
+        unit.appendChild(originalContent.cloneNode(true));
+        track.appendChild(unit);
       }
 
       const duration = unitWidth / SPEED;
       track.style.setProperty('--marquee-distance', `-${unitWidth}px`);
       track.style.setProperty('--marquee-duration', `${duration}s`);
+      void track.offsetWidth;
+      track.style.animation = '';
+    };
+
+    const onResize = () => {
+      if (resizeTimer !== undefined) window.clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(build, RESIZE_DEBOUNCE);
     };
 
     build();
-    window.addEventListener('resize', build);
+    window.addEventListener('resize', onResize, { passive: true });
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+      if (resizeTimer !== undefined) window.clearTimeout(resizeTimer);
+    };
   }
 
-  function init() {
-    document.querySelectorAll<HTMLElement>('.make-marquee').forEach(setupMarquee);
+  function destroyMarquees() {
+    for (const fn of cleanups) fn();
+    cleanups = [];
   }
 
-  init();
-  document.addEventListener('astro:page-load', init);
+  function initMarquees() {
+    document.querySelectorAll<HTMLElement>('.make-marquee').forEach((el) => {
+      if (el.querySelector(':scope > .marquee-track')) return;
+      const cleanup = setupMarquee(el);
+      if (cleanup) cleanups.push(cleanup);
+    });
+  }
+
+  const scheduleInit = (fn: () => void) => window.requestAnimationFrame(fn);
+
+  scheduleInit(initMarquees);
+  document.addEventListener('astro:page-load', () => scheduleInit(initMarquees));
+  document.addEventListener('astro:before-swap', destroyMarquees);
 </script>
