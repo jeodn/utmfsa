@@ -11,62 +11,62 @@
   }
 
   body {
-    @apply bg-white text-slate-900 m-0 h-full w-full p-0 font-sans antialiased;
+    @apply bg-bg-main text-text-main m-0 h-full w-full p-0 font-body antialiased;
   }
 
   main {
-    @apply w-full text-left font-sans text-base;
+    @apply w-full text-left font-body text-base;
   }
 
   ::selection {
-    @apply bg-blue-600 text-white;
+    @apply bg-primary text-text-inverse;
   }
 
   a,
   a:active,
   a:focus {
-    @apply touch-manipulation font-sans font-semibold underline;
+    @apply touch-manipulation font-body font-semibold underline;
   }
 
   a:focus {
-    @apply text-blue-700 no-underline;
+    @apply text-primary-hover no-underline;
   }
 
   a:focus-visible {
-    @apply outline-blue-600 rounded-sm outline-2 outline-offset-4;
+    @apply outline-primary rounded-sm outline-2 outline-offset-4;
   }
 
   a:hover {
-    @apply text-blue-700 no-underline;
+    @apply text-primary-hover no-underline;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-headline font-semibold text-balance text-slate-900;
+    @apply font-headline font-semibold text-balance text-text-main;
   }
 
   p {
-    @apply text-slate-600 leading-relaxed;
+    @apply text-text-muted leading-relaxed;
   }
 }
 
 @layer components {
   .btn-subtle {
-    @apply hover:border-blue-600 hover:bg-blue-50 ring-blue-600 flex cursor-pointer items-center gap-2 border border-slate-300 bg-slate-100 fill-current px-4 py-2 text-sm font-semibold whitespace-nowrap text-slate-800 no-underline shadow-xs rounded-full select-none focus-within:ring-2 hover:text-blue-700 transition-all;
+    @apply hover:border-primary hover:bg-primary-light ring-primary flex cursor-pointer items-center gap-2 border border-border-subtle bg-bg-subtle fill-current px-4 py-2 text-sm font-semibold whitespace-nowrap text-text-main no-underline shadow-xs rounded-full select-none focus-within:ring-2 hover:text-primary transition-all;
   }
 
   .btn-primary {
-    @apply bg-blue-700 hover:bg-blue-800 text-white ring-blue-500 flex cursor-pointer items-center gap-2 rounded-full fill-current px-6 py-2.5 text-sm font-bold whitespace-nowrap no-underline shadow-md shadow-blue-700/20 select-none focus-within:ring-2 hover:shadow-lg transition-all hover:scale-[1.02];
+    @apply bg-primary hover:bg-primary-hover text-text-inverse ring-primary flex cursor-pointer items-center gap-2 rounded-full fill-current px-6 py-2.5 text-sm font-bold whitespace-nowrap no-underline shadow-md shadow-primary/20 select-none focus-within:ring-2 hover:shadow-lg transition-all hover:scale-[1.02];
   }
 
   .btn-secondary {
-    @apply bg-red-600 hover:bg-red-700 text-white ring-red-500 flex cursor-pointer items-center gap-2 rounded-full fill-current px-6 py-2.5 text-sm font-bold whitespace-nowrap no-underline shadow-md shadow-red-600/20 select-none focus-within:ring-2 hover:shadow-lg transition-all hover:scale-[1.02];
+    @apply bg-secondary hover:bg-secondary-hover text-text-inverse ring-secondary flex cursor-pointer items-center gap-2 rounded-full fill-current px-6 py-2.5 text-sm font-bold whitespace-nowrap no-underline shadow-md shadow-secondary/20 select-none focus-within:ring-2 hover:shadow-lg transition-all hover:scale-[1.02];
   }
 
   .section-eyebrow {
-    @apply text-xs font-bold uppercase tracking-widest text-blue-700 mb-2 block;
+    @apply text-xs font-bold uppercase tracking-widest text-primary mb-2 block;
   }
 }
 
@@ -78,6 +78,6 @@
   }
 
   a.unstyle-link:hover {
-    @apply text-blue-700 no-underline;
+    @apply text-primary no-underline;
   }
 }

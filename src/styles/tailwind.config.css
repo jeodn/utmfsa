@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* Tailwind CSS configuration adapted from Stardrive for UTMFSA */
+/* Tailwind CSS configuration with semantic color palette & design tokens */
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -11,6 +11,7 @@
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-mono: Consolas, Courier, monospace, ui-monospace;
   --font-headline: var(--font-serif);
+  --font-body: var(--font-sans);
 
   /* Colors: Base */
   --color-transparent: transparent;
@@ -18,27 +19,29 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
-  /* Colors: UTMFSA Theme (White Base + Royal Blue & Crimson Red Accents) */
+  /* Colors: Semantic UTMFSA Palette */
   --color-primary: #0038a8;
-  --color-primary-light: #2563eb;
-  --color-primary-dark: #1e3a8a;
-  --color-primary-contrast: #ffffff;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #eff6ff;
 
   --color-secondary: #ce1126;
-  --color-secondary-light: #dc2626;
-  --color-secondary-dark: #991b1b;
-  --color-secondary-contrast: #ffffff;
+  --color-secondary-hover: #dc2626;
+  --color-secondary-light: #fef2f2;
 
   --color-gold: #f59e0b;
-  --color-gold-light: #fbbf24;
+  --color-gold-hover: #d97706;
+  --color-gold-light: #fffbeb;
 
-  --color-background: #ffffff;
-  --color-surface-subtle: #f8fafc;
-  --color-surface-card: #ffffff;
-  
+  --color-bg-main: #ffffff;
+  --color-bg-subtle: #f8fafc;
+  --color-bg-card: #ffffff;
+
   --color-text-main: #0f172a;
   --color-text-muted: #475569;
+  --color-text-inverse: #ffffff;
+
   --color-border-subtle: #e2e8f0;
+  --color-border-hover: #cbd5e1;
 
   /* Custom Animations */
   --animate-bounce-slow: bounce-small 2s infinite;

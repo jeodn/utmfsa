@@ -2,40 +2,40 @@
 import Icon from "./Icon.astro";
 ---
 
-<section id="membership" class="section membership-3d-section relative py-20 sm:py-28 bg-white text-slate-900 overflow-hidden border-t border-slate-200">
+<section id="membership" class="section membership-3d-section relative py-20 sm:py-28 bg-bg-main text-text-main overflow-hidden border-t border-border-subtle">
   <!-- Soft Background Glow -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-50/80 via-white to-white pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-light/80 via-bg-main to-bg-main pointer-events-none"></div>
 
   <div class="container relative z-10 flex flex-col items-center text-center">
     <span class="section-eyebrow">MEMBER EXCLUSIVE</span>
 
-    <h2 class="text-3xl sm:text-5xl font-serif font-bold tracking-tight text-slate-900 mb-4">
+    <h2 class="text-3xl sm:text-5xl font-headline font-bold tracking-tight text-text-main mb-4">
       UTMFSA Digital VIP Card
     </h2>
-    <p class="max-w-2xl text-slate-600 text-base sm:text-lg mb-12 px-4">
+    <p class="max-w-2xl text-text-muted text-base sm:text-lg mb-12 px-4">
       Unlock 10-15% discounts across Mississauga, early access to flagship events, and VIP perks for all general members.
     </p>
 
     <!-- 3D Card Viewport -->
     <div class="card-3d-viewport relative w-full max-w-md aspect-[1.586/1] perspective-1000 my-4">
-      <div id="membership-card-3d" class="card-3d-wrapper relative w-full h-full rounded-2xl p-6 sm:p-8 shadow-2xl transition-transform ease-out duration-100 flex flex-col justify-between border border-blue-400/30 bg-gradient-to-br from-blue-900 via-slate-900 to-blue-950 text-white overflow-hidden group">
+      <div id="membership-card-3d" class="card-3d-wrapper relative w-full h-full rounded-2xl p-6 sm:p-8 shadow-2xl transition-transform ease-out duration-100 flex flex-col justify-between border border-primary/30 bg-gradient-to-br from-primary via-slate-900 to-primary-hover text-white overflow-hidden group">
 
         <!-- Holographic Sheen Overlay -->
-        <div class="card-sheen absolute inset-0 bg-gradient-to-tr from-transparent via-blue-400/20 to-transparent pointer-events-none transition-opacity duration-300 opacity-60"></div>
+        <div class="card-sheen absolute inset-0 bg-gradient-to-tr from-transparent via-primary-light/20 to-transparent pointer-events-none transition-opacity duration-300 opacity-60"></div>
         
         <!-- Background Sunburst Glow -->
-        <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-red-600/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-secondary/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <!-- Card Top Header -->
         <div class="relative z-10 flex items-center justify-between">
           <div class="flex items-center gap-3">
             <img src="/favicon.ico" alt="UTMFSA Logo" class="w-9 h-9 rounded-md border border-white/30 shadow-xs bg-white/10 p-0.5 object-contain" />
             <div class="flex flex-col text-left">
-              <span class="text-xs uppercase tracking-widest text-blue-200 font-bold">UTM FSA</span>
+              <span class="text-xs uppercase tracking-widest text-primary-light font-bold">UTM FSA</span>
               <span class="text-[10px] text-slate-300">Filipino Students' Association</span>
             </div>
           </div>
-          <span class="px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-red-600 text-white shadow-sm">
+          <span class="px-3.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-secondary text-white shadow-sm">
             2025 - 2026
           </span>
         </div>
@@ -50,7 +50,7 @@ import Icon from "./Icon.astro";
           </div>
           
           <div class="text-right">
-            <div class="text-[10px] text-blue-200/70 font-mono tracking-widest uppercase">MEMBER ID</div>
+            <div class="text-[10px] text-primary-light/80 font-mono tracking-widest uppercase">MEMBER ID</div>
             <div class="text-sm font-mono text-white font-semibold tracking-wider">FSA-2025-0842</div>
           </div>
         </div>
@@ -59,18 +59,18 @@ import Icon from "./Icon.astro";
         <div class="relative z-10 flex items-end justify-between text-left pt-2">
           <div>
             <div class="text-[9px] text-slate-300 uppercase tracking-widest">CARDHOLDER</div>
-            <div class="text-base sm:text-lg font-serif font-bold text-white tracking-wide">MABUHAY MEMBER</div>
+            <div class="text-base sm:text-lg font-headline font-bold text-white tracking-wide">MABUHAY MEMBER</div>
           </div>
           <div class="text-right">
             <div class="text-[9px] text-slate-300 uppercase tracking-widest">STATUS</div>
-            <div class="text-xs font-bold text-amber-300 uppercase tracking-wider">VIP ACTIVE</div>
+            <div class="text-xs font-bold text-gold uppercase tracking-wider">VIP ACTIVE</div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="mt-10">
-      <a href="#join" class="btn-primary text-base px-8 py-3.5 shadow-lg shadow-blue-700/20">
+      <a href="#join" class="btn-primary text-base px-8 py-3.5 shadow-lg shadow-primary/20">
         <Icon name="card" size={20} />
         <span>Get Your Digital VIP Card</span>
       </a>
@@ -80,7 +80,7 @@ import Icon from "./Icon.astro";
 
 <style>
   .perspective-1000 {
-    perspective: 1200px;
+    perspective: 1000px;
   }
   .card-3d-wrapper {
     transform-style: preserve-3d;
