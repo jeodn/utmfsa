@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Icon from "./Icon.astro";
 
-// Import all sponsor image assets from src/assets/sponsors/
+// Import all sponsor image assets from src/assets/sponsors/ with Astro asset processing
 const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/sponsors/*.{jpeg,jpg,png,gif,svg,webp}",
   { eager: true }
@@ -11,19 +11,19 @@ const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
 interface Sponsor {
   id: string;
   name: string;
+  category: string;
   icon: string;
+  discount: string;
   imageFileName?: string;
 }
 
 const sponsors: Sponsor[] = [
-  { id: "jolibee", name: "Jolibee",  icon: "badge", imageFileName: "jolibee.webp" },
-  { id: "potato-corner", name: "Potato Corner",  icon: "badge", imageFileName: "potatocorner.png" },
-  { id: "chatime", name: "Chatime UTM", icon: "sparkles", imageFileName: "chatime.png" },
-  { id: "grotto-tea", name: "Grotto", icon: "shoppingBag", imageFileName: "grotto.png" },
-  { id: "tagpuan", name: "Tagpuan", icon: "badge", imageFileName: "tagpuan.png" },
-  { id: "thirstea", name: "Thirstea", icon: "badge", imageFileName: "thirstea.png" },
-  { id: "utmsu", name: "UTM Student Union", icon: "users", imageFileName: "utmsu.jpg"  },
-  { id: "trapped", name: "TRAPPED",  icon: "badge", imageFileName: "trapped.png" }
+  { id: "chatime", name: "Chatime UTM", category: "Boba & Teas", discount: "10% Off", icon: "sparkles", imageFileName: "chatime.svg" },
+  { id: "manila-bakes", name: "Grotto", category: "Filipino Bakery", discount: "Special Perk", icon: "shoppingBag", imageFileName: "grotto.png" },
+  { id: "tagpuan", name: "Tagpuan", category: "Restaurant", discount: "15% Off", icon: "badge", imageFileName: "tagpuan.png" },
+  { id: "thirstea", name: "Thirstea", category: "Desserts", discount: "Free Topping", icon: "badge", imageFileName: "thirstea.png" },
+  { id: "utmsu", name: "UTM Student Union", category: "Partner", discount: "Campus Sponsor", icon: "users" },
+  { id: "trapped", name: "TRAPPED", category: "Entertainment", discount: "10% Off", icon: "badge", imageFileName: "trapped.png" }
 ];
 
 interface Props {
@@ -32,7 +32,7 @@ interface Props {
 }
 
 const {
-  slogan = "OFFICIAL UTMFSA SPONSORS & PARTNERS",
+  slogan = "OFFICIAL UTMFSA SPONSORS & DEALS",
   minCopies = 2,
 } = Astro.props;
 ---
@@ -45,8 +45,8 @@ const {
     <Icon name="star" size={14} class="text-gold shrink-0" />
   </div>
 
-  <!-- Main Marquee Container (Logos Only) -->
-  <div class="relative flex h-32 w-full items-center justify-center overflow-hidden">
+  <!-- Main Marquee Container -->
+  <div class="relative flex h-16 w-full items-center justify-center overflow-hidden">
     <!-- 1. Desktop Left Text Badge -->
     <div class="z-30 hidden items-center justify-center gap-3 bg-bg-subtle border-r border-border-subtle px-6 py-2 text-left md:flex shrink-0 h-full">
       <div class="p-2 rounded-xl bg-primary-light text-primary shrink-0 flex items-center justify-center">
@@ -60,7 +60,7 @@ const {
     <!-- 2. Left Fade Gradient -->
     <div class="z-20 hidden h-full w-24 shrink-0 bg-gradient-to-r from-bg-subtle via-bg-subtle/90 to-transparent md:block pointer-events-none"></div>
 
-    <!-- 3. Marquee Track (Clean Logos Only) -->
+    <!-- 3. Marquee Track -->
     <div class="make-marquee w-full overflow-hidden z-10 md:-ml-24" data-min-copies={minCopies}>
       <div class="flex items-center whitespace-nowrap py-1">
         {sponsors.map((sponsor) => {
@@ -68,21 +68,20 @@ const {
           const imageAsset = imageKey ? sponsorImages[imageKey]?.default : undefined;
 
           return (
-            <div class="inline-flex items-center justify-center mx-10 shrink-0">
+            <div class="sponsor-card inline-flex items-center gap-3.5 rounded-full border border-border-subtle bg-bg-card px-5 py-2 shadow-xs transition-transform hover:scale-[1.02] hover:border-primary-hover mx-3 shrink-0">
               {imageAsset ? (
-                <Image 
-                  src={imageAsset} 
-                  alt={sponsor.name} 
-                  class="h-20 sm:h-28 w-auto object-contain shrink-0 max-w-[240px] transition-all hover:scale-105" 
-                />
+                <Image src={imageAsset} alt={sponsor.name} class="h-7 w-auto object-contain shrink-0 max-w-[110px]" />
               ) : (
-                <div class="inline-flex items-center gap-3 rounded-full border border-border-subtle bg-bg-card px-5 py-2.5 shadow-xs">
-                  <span class="flex h-8 w-8 items-center justify-center rounded-full bg-primary-light text-primary shrink-0">
-                    <Icon name={sponsor.icon} size={18} />
-                  </span>
-                  <span class="text-sm font-bold text-text-main tracking-tight">{sponsor.name}</span>
-                </div>
+                <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary-light text-primary shrink-0 border border-primary/20">
+                  <Icon name={sponsor.icon} size={18} />
+                </span>
               )}
+              <div class="flex flex-col text-left shrink-0">
+                <span class="text-sm font-bold text-text-main tracking-tight leading-tight">{sponsor.name}</span>
+                <span class="text-xs text-text-muted leading-tight">
+                  {sponsor.category} • <strong class="inline-block text-secondary font-semibold px-1.5 py-0.5 rounded bg-secondary-light text-[11px]">{sponsor.discount}</strong>
+                </span>
+              </div>
             </div>
           );
         })}
