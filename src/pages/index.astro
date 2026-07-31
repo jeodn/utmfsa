@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Hero from "../components/Hero.astro";
 import SponsorRibbon from "../components/SponsorRibbon.astro";
 import MembershipCard3D from "../components/MembershipCard3D.astro";
+import AboutSection from "../components/AboutSection.astro";
 ---
 
 <Layout title="UTMFSA | UTM Filipino Students' Association">
@@ -14,35 +15,11 @@ import MembershipCard3D from "../components/MembershipCard3D.astro";
     <SponsorRibbon slogan="OFFICIAL UTMFSA SPONSORS & PARTNERS" />
   </div>
 
+  <!-- About Section (from astro-chalet style) -->
+  <AboutSection />
+
   <!-- Apple-Style 3D Scroll-Rotating Membership Card Section -->
   <div id="membership">
     <MembershipCard3D />
   </div>
-
-  <!-- About Section -->
-  <section id="about" class="py-20 bg-stone-900 text-stone-200">
-    <div class="container mx-auto px-6 max-w-4xl text-center">
-      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-amber-50 mb-6">Mabuhay! Welcome to UTMFSA</h2>
-      <p class="text-stone-300 text-lg leading-relaxed mb-8">
-        The University of Toronto Mississauga Filipino Students' Association (UTMFSA) is dedicated to fostering a welcoming community celebrating Filipino culture, heritage, and friendship. Through cultural showcases, sports leagues, academic support, and social gatherings, we build a vibrant home away from home for all students at UTM.
-      </p>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left mt-12">
-        <div class="p-6 rounded-2xl bg-stone-800/60 border border-stone-700/50">
-          <div class="text-2xl mb-2">🇵🇭</div>
-          <h3 class="font-serif font-bold text-white text-xl mb-2">Culture & Heritage</h3>
-          <p class="text-sm text-stone-400">Celebrating traditional music, dance, food, and history through our flagship Bayanihan showcase.</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-stone-800/60 border border-stone-700/50">
-          <div class="text-2xl mb-2">🤝</div>
-          <h3 class="font-serif font-bold text-white text-xl mb-2">Community & Socials</h3>
-          <p class="text-sm text-stone-400">Connecting students with fun social events, halo-halo mixers, and intramural sports teams.</p>
-        </div>
-        <div class="p-6 rounded-2xl bg-stone-800/60 border border-stone-700/50">
-          <div class="text-2xl mb-2">🎟️</div>
-          <h3 class="font-serif font-bold text-white text-xl mb-2">Sponsor Perks</h3>
-          <p class="text-sm text-stone-400">Discounts at local Mississauga GTA restaurants, boba shops, and Asian grocers.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 </Layout>

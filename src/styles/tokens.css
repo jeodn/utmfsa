@@ -1,38 +1,39 @@
 /* ============================================================================
-   UTMFSA DESIGN TOKENS
-   Combining warm editorial serif typography from astro-chalet with modern layout.
+   UTMFSA DESIGN TOKENS — Editorial & Modern Cultural System
    ============================================================================ */
 
 :root {
   /* --- Colors --- */
-  --color-bg: #fdfbf7;
-  --color-surface: #ffffff;
-  --color-surface-alt: #f6efe2;
-  --color-text: #221710;
-  --color-text-muted: #6e5e4f;
-  --color-accent: #d97706; /* Gold / Amber */
-  --color-accent-hover: #b45309;
-  --color-brand-red: #ce1126; /* Philippine flag red accent */
-  --color-brand-blue: #0038a8; /* Philippine flag blue accent */
-  --color-border: #e8dccb;
+  --color-bg: #0c0a09;          /* Deep stone black */
+  --color-surface: #1c1917;     /* Dark stone surface */
+  --color-surface-alt: #292524; /* Elevated card surface */
+  --color-text: #f5f5f4;
+  --color-text-muted: #a8a29e;
+  --color-accent: #f59e0b;      /* Mango gold / Amber */
+  --color-accent-hover: #d97706;
+  --color-border: #44403c;
 
-  /* Dark theme sections */
-  --color-dark-bg: #1a120b; /* Deep espresso */
-  --color-dark-surface: #281c12;
-  --color-dark-text: #f7f0e4;
-  --color-dark-text-muted: #cfbb9f;
-
-  /* --- Typography --- */
+  /* --- Editorial Typography --- */
   --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
   --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  /* --- Layout & Spacing --- */
-  --content-width: 1140px;
-  --radius: 16px;
-  --radius-pill: 999px;
-  --shadow-card: 0 4px 20px rgba(34, 23, 16, 0.08);
-  --shadow-glow: 0 8px 30px rgba(217, 119, 6, 0.25);
-  --transition: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* --- Spacing System --- */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-section: clamp(4.5rem, 9vw, 7.5rem); /* Generous vertical breathing room */
+
+  /* --- Containers & Geometry --- */
+  --content-width: 1180px;
+  --radius: 20px;
+  --radius-sm: 12px;
+  --radius-pill: 9999px;
+
+  /* --- Shadows & Motion --- */
+  --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 12px 40px rgba(245, 158, 11, 0.2);
+  --transition: 280ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -45,10 +46,17 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  line-height: 1.6;
+  line-height: 1.65;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, h4, .font-serif {
   font-family: var(--font-heading);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+}
+
+p {
+  max-width: 65ch;
 }

@@ -1,5 +1,5 @@
 ---
-import { Icon } from "astro-icon/components";
+import Icon from "./Icon.astro";
 
 interface Sponsor {
   name: string;
@@ -9,12 +9,12 @@ interface Sponsor {
 }
 
 const sponsors: Sponsor[] = [
-  { name: "Chatime UTM", category: "Boba & Teas", discount: "10% Off", icon: "heroicons:sparkles" },
-  { name: "Manila Bakes", category: "Filipino Bakery", discount: "Special Perk", icon: "heroicons:shopping-bag" },
-  { name: "Kultura Grill", category: "Restaurant", discount: "15% Off", icon: "heroicons:fire" },
-  { name: "Halo-Halo Corner", category: "Desserts", discount: "Free Topping", icon: "heroicons:heart" },
-  { name: "UTM Student Union", category: "Partner", discount: "Campus Sponsor", icon: "heroicons:academic-cap" },
-  { name: "Sari-Sari Mart", category: "Grocery", discount: "10% Off", icon: "heroicons:building-storefront" }
+  { name: "Chatime UTM", category: "Boba & Teas", discount: "10% Off", icon: "sparkles" },
+  { name: "Manila Bakes", category: "Filipino Bakery", discount: "Special Perk", icon: "shoppingBag" },
+  { name: "Kultura Grill", category: "Restaurant", discount: "15% Off", icon: "badge" },
+  { name: "Halo-Halo Corner", category: "Desserts", discount: "Free Topping", icon: "heart" },
+  { name: "UTM Student Union", category: "Partner", discount: "Campus Sponsor", icon: "users" },
+  { name: "Sari-Sari Mart", category: "Grocery", discount: "10% Off", icon: "sun" }
 ];
 
 interface Props {
@@ -25,24 +25,24 @@ interface Props {
 const { slogan = "OUR PROUD BUSINESS SPONSORS & PARTNERS", minCopies = 2 } = Astro.props;
 ---
 
-<section class="sponsor-ribbon-container border-y border-amber-900/20 bg-stone-900 text-amber-50 py-6 overflow-hidden">
+<section class="sponsor-ribbon-container border-y border-amber-500/20 bg-stone-900/90 text-amber-50 py-10 overflow-hidden">
   {slogan && (
-    <div class="container mx-auto px-4 mb-4 flex items-center justify-center gap-2 text-center">
-      <Icon name="heroicons:star-solid" class="h-4 w-4 text-amber-400" aria-hidden="true" />
-      <span class="text-xs tracking-[0.25em] font-semibold uppercase text-amber-300/90">{slogan}</span>
-      <Icon name="heroicons:star-solid" class="h-4 w-4 text-amber-400" aria-hidden="true" />
+    <div class="container mx-auto px-4 mb-6 flex items-center justify-center gap-3 text-center">
+      <Icon name="star" size={16} class="text-amber-400" />
+      <span class="text-xs tracking-[0.25em] font-bold uppercase text-amber-300">{slogan}</span>
+      <Icon name="star" size={16} class="text-amber-400" />
     </div>
   )}
 
   <div class="make-marquee relative flex w-full overflow-hidden" data-min-copies={minCopies}>
-    <div class="marquee-track flex items-center gap-8 whitespace-nowrap py-2">
+    <div class="marquee-track flex items-center gap-8 whitespace-nowrap py-3">
       {sponsors.map((sponsor) => (
-        <div class="sponsor-card inline-flex items-center gap-3 rounded-full border border-amber-500/30 bg-stone-800/80 px-5 py-2 transition-transform hover:scale-105 hover:border-amber-400">
-          <span class="flex h-8 w-8 items-center justify-center rounded-full bg-amber-500/20 text-amber-400">
-            <Icon name={sponsor.icon || "heroicons:star"} class="h-4 w-4" />
+        <div class="sponsor-card inline-flex items-center gap-3.5 rounded-full border border-amber-500/30 bg-stone-950 px-6 py-3 shadow-md transition-transform hover:scale-105 hover:border-amber-400">
+          <span class="flex h-9 w-9 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 p-2">
+            <Icon name={sponsor.icon || "star"} size={20} />
           </span>
           <div class="flex flex-col text-left">
-            <span class="text-sm font-bold text-white">{sponsor.name}</span>
+            <span class="text-sm font-bold text-white tracking-wide">{sponsor.name}</span>
             <span class="text-[11px] text-amber-200/70">{sponsor.category} {sponsor.discount ? `• ${sponsor.discount}` : ''}</span>
           </div>
         </div>

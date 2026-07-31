@@ -1,0 +1,67 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<section id="about" class="section section-alt border-t border-stone-800 bg-stone-900 text-stone-200">
+  <div class="container py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Text content with Drop Cap editorial style -->
+      <div class="lg:col-span-7 space-y-6 text-left">
+        <p class="section-eyebrow">MABUHAY & WELCOME</p>
+        <h2 class="text-3xl sm:text-5xl font-serif font-bold text-white leading-tight">
+          The Heart of Filipino Student Life at UTM
+        </h2>
+        <div class="about-prose text-stone-300 text-base sm:text-lg space-y-4 leading-relaxed">
+          <p class="first-letter:font-serif first-letter:text-5xl first-letter:font-bold first-letter:text-amber-400 first-letter:float-left first-letter:mr-3 first-letter:lh-none">
+            The University of Toronto Mississauga Filipino Students' Association (UTMFSA) is dedicated to building an inclusive, home-away-from-home community for all students. We bring together Filipino culture, heritage, and friendship across campus.
+          </p>
+          <p>
+            Whether you are eager to taste home-cooked traditional food, participate in our annual flagship <em>Bayanihan Culture Showcase</em>, compete in intramural sports leagues, or enjoy exclusive discounts from local Mississauga business sponsors, UTMFSA is your family.
+          </p>
+        </div>
+
+        <div class="pt-4 flex flex-wrap gap-4">
+          <a href="#membership" class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-amber-500 text-stone-950 font-bold text-sm transition-transform hover:scale-105 hover:bg-amber-400">
+            <span>Get Membership VIP Card</span>
+            <Icon name="arrowRight" size={18} />
+          </a>
+        </div>
+      </div>
+
+      <!-- Feature Highlight Cards from astro-chalet style -->
+      <div class="lg:col-span-5 space-y-4">
+        <div class="p-6 rounded-2xl bg-stone-950/80 border border-amber-500/20 shadow-xl flex items-start gap-4 transition-transform hover:-translate-y-1">
+          <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
+            <Icon name="sun" size={28} />
+          </div>
+          <div>
+            <h3 class="font-serif font-bold text-white text-lg mb-1">Culture & Heritage</h3>
+            <p class="text-sm text-stone-400 leading-normal">Celebrating Filipino music, traditional dance, history, and home-cooked culinary treats.</p>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-stone-950/80 border border-amber-500/20 shadow-xl flex items-start gap-4 transition-transform hover:-translate-y-1">
+          <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
+            <Icon name="users" size={28} />
+          </div>
+          <div>
+            <h3 class="font-serif font-bold text-white text-lg mb-1">Community Socials</h3>
+            <p class="text-sm text-stone-400 leading-normal">Building lifelong friendships through halo-halo mixers, sports games, and study jams.</p>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-stone-950/80 border border-amber-500/20 shadow-xl flex items-start gap-4 transition-transform hover:-translate-y-1">
+          <div class="p-3 rounded-xl bg-amber-500/10 text-amber-400 shrink-0">
+            <Icon name="shoppingBag" size={28} />
+          </div>
+          <div>
+            <h3 class="font-serif font-bold text-white text-lg mb-1">Exclusive Sponsor Perks</h3>
+            <p class="text-sm text-stone-400 leading-normal">Discounts at top boba shops, GTA Filipino bakeries, and Asian food spots.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
