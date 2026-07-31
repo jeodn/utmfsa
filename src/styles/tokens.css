@@ -1,0 +1,54 @@
+/* ============================================================================
+   UTMFSA DESIGN TOKENS
+   Combining warm editorial serif typography from astro-chalet with modern layout.
+   ============================================================================ */
+
+:root {
+  /* --- Colors --- */
+  --color-bg: #fdfbf7;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f6efe2;
+  --color-text: #221710;
+  --color-text-muted: #6e5e4f;
+  --color-accent: #d97706; /* Gold / Amber */
+  --color-accent-hover: #b45309;
+  --color-brand-red: #ce1126; /* Philippine flag red accent */
+  --color-brand-blue: #0038a8; /* Philippine flag blue accent */
+  --color-border: #e8dccb;
+
+  /* Dark theme sections */
+  --color-dark-bg: #1a120b; /* Deep espresso */
+  --color-dark-surface: #281c12;
+  --color-dark-text: #f7f0e4;
+  --color-dark-text-muted: #cfbb9f;
+
+  /* --- Typography --- */
+  --font-heading: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* --- Layout & Spacing --- */
+  --content-width: 1140px;
+  --radius: 16px;
+  --radius-pill: 999px;
+  --shadow-card: 0 4px 20px rgba(34, 23, 16, 0.08);
+  --shadow-glow: 0 8px 30px rgba(217, 119, 6, 0.25);
+  --transition: 250ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-heading);
+}

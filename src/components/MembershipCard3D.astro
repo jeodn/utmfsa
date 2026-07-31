@@ -1,0 +1,118 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<section class="membership-3d-section relative py-24 bg-stone-950 text-white overflow-hidden">
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-900/30 via-stone-950 to-stone-950 pointer-events-none"></div>
+
+  <div class="container mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-amber-300 text-xs font-semibold uppercase tracking-widest mb-4">
+      <Icon name="heroicons:sparkles" class="h-4 w-4" />
+      <span>Official Membership</span>
+    </div>
+
+    <h2 class="text-4xl sm:text-5xl font-serif font-bold tracking-tight text-amber-50 mb-4">
+      UTMFSA Digital VIP Card
+    </h2>
+    <p class="max-w-2xl text-stone-400 text-base sm:text-lg mb-16">
+      Unlock exclusive discounts across Mississauga, early access to flagship events, and VIP perks for all general members.
+    </p>
+
+    <!-- 3D Card Container -->
+    <div class="card-3d-viewport relative w-full max-w-md aspect-[1.586/1] perspective-1000">
+      <div id="membership-card-3d" class="card-3d-wrapper relative w-full h-full rounded-2xl p-6 shadow-2xl transition-transform ease-out duration-100 flex flex-col justify-between border border-amber-400/40 bg-gradient-to-br from-stone-900 via-amber-950/40 to-stone-900 overflow-hidden group">
+
+        <!-- Holographic Sheen Overlay -->
+        <div class="card-sheen absolute inset-0 bg-gradient-to-tr from-transparent via-amber-300/15 to-transparent pointer-events-none transition-opacity duration-300 opacity-60"></div>
+        
+        <!-- Background Sunburst Pattern -->
+        <div class="absolute -right-16 -bottom-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Card Top Header -->
+        <div class="relative z-10 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-amber-500/20 border border-amber-400/50 flex items-center justify-center text-amber-300 font-bold text-lg">
+              ☀️
+            </div>
+            <div class="flex flex-col text-left">
+              <span class="text-xs uppercase tracking-widest text-amber-300/80 font-bold">UTM FSA</span>
+              <span class="text-[10px] text-stone-400">Filipino Students' Association</span>
+            </div>
+          </div>
+          <span class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider rounded-full bg-amber-400 text-stone-950">
+            2025 - 2026
+          </span>
+        </div>
+
+        <!-- Card Chip & Emblem -->
+        <div class="relative z-10 flex items-center justify-between my-auto pt-4">
+          <!-- Metallic Chip -->
+          <div class="w-12 h-9 rounded-md bg-gradient-to-tr from-amber-300 via-amber-100 to-amber-400 border border-amber-200/80 shadow-inner relative overflow-hidden flex items-center justify-center">
+            <div class="w-full h-px bg-amber-800/40 absolute top-1/3"></div>
+            <div class="w-full h-px bg-amber-800/40 absolute bottom-1/3"></div>
+            <div class="h-full w-px bg-amber-800/40 absolute left-1/2"></div>
+          </div>
+          
+          <div class="text-right">
+            <div class="text-xs text-amber-200/60 font-mono tracking-widest uppercase">MEMBER ID</div>
+            <div class="text-sm font-mono text-amber-100 font-semibold tracking-wider">FSA-2025-0842</div>
+          </div>
+        </div>
+
+        <!-- Card Bottom Info -->
+        <div class="relative z-10 flex items-end justify-between text-left">
+          <div>
+            <div class="text-[10px] text-stone-400 uppercase tracking-widest">CARDHOLDER</div>
+            <div class="text-lg font-serif font-bold text-white tracking-wide">MABUHAY MEMBER</div>
+          </div>
+          <div class="text-right">
+            <div class="text-[10px] text-stone-400 uppercase tracking-widest">STATUS</div>
+            <div class="text-xs font-bold text-amber-300 uppercase tracking-wider">VIP ACTIVE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .perspective-1000 {
+    perspective: 1200px;
+  }
+  .card-3d-wrapper {
+    transform-style: preserve-3d;
+    transform: rotateX(25deg) rotateY(-15deg) rotateZ(3deg) scale(0.92);
+    box-shadow: 0 30px 60px -12px rgba(217, 119, 6, 0.25), 0 18px 36px -18px rgba(0, 0, 0, 0.7);
+    will-change: transform;
+  }
+</style>
+
+<script>
+  function setupScrollCard() {
+    const card = document.getElementById('membership-card-3d');
+    const container = card?.closest('.membership-3d-section');
+    if (!card || !container) return;
+
+    function onScroll() {
+      if (!card || !container) return;
+      const rect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      // Calculate progress from 0 (entering bottom) to 1 (leaving top)
+      const progress = Math.max(0, Math.min(1, (windowHeight - rect.top) / (windowHeight + rect.height)));
+      
+      // Interpolate rotation: starts tilted, flattens towards center, rotates back as you scroll past
+      const rotateX = (0.5 - progress) * 45;
+      const rotateY = (progress - 0.5) * 35;
+      const scale = 0.9 + Math.sin(progress * Math.PI) * 0.15;
+
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  setupScrollCard();
+  document.addEventListener('astro:page-load', setupScrollCard);
+</script>
