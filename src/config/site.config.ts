@@ -1,12 +1,12 @@
 export const siteConfig = {
-  name: "UTM Filipino Students' Association",
+  name: "UTM Filipino Student Association",
   shortName: "UTMFSA",
   description: "Celebrating Filipino culture, student community, signature events, and exclusive member perks at the University of Toronto Mississauga.",
   location: "University of Toronto Mississauga (UTM)",
   
   // Centralized Contact Information
   contact: {
-    studentEmail: "utmfsa@gmail.com",
+    studentEmail: "utmfsa@utmsu.ca",
     sponsorEmail: "utmfsa.sponsors@gmail.com",
     instagramHandle: "@utmfsa",
     instagramUrl: "https://instagram.com/utmfsa",
