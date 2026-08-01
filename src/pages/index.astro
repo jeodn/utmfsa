@@ -10,8 +10,8 @@ import AboutSection from "../components/AboutSection.astro";
 <Layout title="UTMFSA | UTM Filipino Students' Association" transparentHeader={true}>
   <!-- Full Screen Hero Mini Splash -->
   <HeroSplash 
-    slogan="Sama-Sama: United in Culture, Community, and Connection" 
-    subheading="Welcome to UTMFSA! Celebrating Filipino culture, student community, signature events, and exclusive perks at UTM."
+    slogan="Your Community On Campus" 
+    subheading="Welcome to UTMFSA!"
   />
 
   <!-- Main Hero Content Section (Follows Full Screen Splash on Scroll) -->
@@ -19,18 +19,13 @@ import AboutSection from "../components/AboutSection.astro";
     <Hero />
   </div>
 
-  <!-- Sponsor Ribbon Marquee -->
-  <div id="sponsors">
-    <SponsorRibbon slogan="SPONSORS & PARTNERS" />
-  </div>
-
-  <!-- About Section (from astro-chalet style) -->
-  <div id="about">
-    <AboutSection />
-  </div>
-
   <!-- Apple-Style 3D Scroll-Rotating Membership Card Section -->
   <div id="membership">
     <MembershipCard3D />
+  </div>
+
+  <!-- Sponsor Ribbon Marquee -->
+  <div id="sponsors">
+    <SponsorRibbon slogan="SPONSORS & PARTNERS" />
   </div>
 </Layout>
