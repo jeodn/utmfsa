@@ -20,6 +20,15 @@
   --color-black: #000000;
 
   /* Colors: Semantic UTMFSA Palette */
+  /*
+  --color-primary: #0038a8;
+  --color-primary-hover: #1d4ed8;
+  --color-primary-light: #eff6ff;
+
+  --color-secondary: #ce1126;
+  --color-secondary-hover: #dc2626;
+  --color-secondary-light: #fef2f2;*/
+
   --color-primary: #0038a8;
   --color-primary-hover: #1d4ed8;
   --color-primary-light: #eff6ff;
@@ -28,9 +37,9 @@
   --color-secondary-hover: #dc2626;
   --color-secondary-light: #fef2f2;
 
-  --color-gold: #f59e0b;
-  --color-gold-hover: #d97706;
-  --color-gold-light: #fffbeb;
+  --color-gold: #ebe560;
+  --color-gold-hover: #d4cc1f;
+  --color-gold-light: #fbfae6;
 
   --color-bg-main: #ffffff;
   --color-bg-subtle: #f8fafc;
