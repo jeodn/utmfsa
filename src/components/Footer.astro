@@ -1,5 +1,5 @@
 ---
-import { siteConfig } from "../config/site.config";
+import { siteConfig, footerNavLinks } from "../config/site.config";
 ---
 
 <footer class="border-t border-border-subtle bg-text-main text-text-muted py-12">
@@ -14,12 +14,11 @@ import { siteConfig } from "../config/site.config";
 
     <!-- Quick Footer Links -->
     <div class="flex flex-wrap justify-center items-center gap-6 text-sm text-slate-300 font-medium">
-      <a href="/about-us" class="unstyle-link hover:text-white transition-colors">About Us</a>
-      <a href="/membership" class="unstyle-link hover:text-white transition-colors">Membership VIP</a>
-      <a href="/events" class="unstyle-link hover:text-white transition-colors">Events</a>
-      <a href="/join" class="unstyle-link hover:text-white transition-colors">Why Join?</a>
-      <a href="/contact-us" class="unstyle-link hover:text-white transition-colors">Contact Us</a>
+      {footerNavLinks.map((link) => (
+        <a href={link.href} class="unstyle-link hover:text-white transition-colors">{link.label}</a>
+      ))}
       <a href={siteConfig.contact.instagramUrl} target="_blank" rel="noreferrer" class="unstyle-link hover:text-white transition-colors">Instagram</a>
     </div>
   </div>
 </footer>
+
