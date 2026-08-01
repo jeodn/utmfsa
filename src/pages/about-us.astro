@@ -1,20 +1,34 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import SponsorRibbon from "../components/SponsorRibbon.astro";
-import MembershipCard3D from "../components/MembershipCard3D.astro";
 import AboutSection from "../components/AboutSection.astro";
+import Gallery from "../components/Gallery.astro";
+import MeetTheTeam from "../components/MeetTheTeam.astro";
+import HistoryTimeline from "../components/HistoryTimeline.astro";
 ---
 
-<Layout title="UTMFSA | About Us">
-  <!-- Hero Section -->
-  <Hero />
+<Layout title="UTMFSA | About Us" description="Learn about the UTM Filipino Students' Association — our mission, team, gallery, and history at UTM.">
+  <!-- Page Banner Header -->
+  <section class="py-16 sm:py-20 bg-bg-subtle border-b border-border-subtle text-center">
+    <div class="container max-w-4xl">
+      <span class="section-eyebrow">ABOUT UTMFSA</span>
+      <h1 class="text-4xl sm:text-6xl font-headline font-bold text-text-main tracking-tight mb-4">
+        Celebrating Culture & Community
+      </h1>
+      <p class="text-text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
+        Dedicated to bringing students together, promoting Filipino cultural heritage, and creating lifelong connections at the University of Toronto Mississauga.
+      </p>
+    </div>
+  </section>
 
-  <!-- About Section (from astro-chalet style) -->
+  <!-- Editorial About Section -->
   <AboutSection />
 
-  <!-- Apple-Style 3D Scroll-Rotating Membership Card Section -->
-  <div id="membership">
-    <MembershipCard3D />
-  </div>
+  <!-- Reusable Photo Gallery -->
+  <Gallery />
+
+  <!-- Meet the Team (with Why Join FSA CTA link) -->
+  <MeetTheTeam />
+
+  <!-- History & Traditions Timeline -->
+  <HistoryTimeline />
 </Layout>

@@ -1,0 +1,130 @@
+---
+import Icon from "./Icon.astro";
+
+interface TeamMember {
+  name: string;
+  role: string;
+  yearProgram: string;
+  bio: string;
+  image?: string;
+}
+
+const execs: TeamMember[] = [
+  {
+    name: "Executive President",
+    role: "President",
+    yearProgram: "4th Year | CCIT & Management",
+    bio: "Leading UTMFSA initiatives, community partnerships, and executive vision.",
+    image: "/favicon.ico"
+  },
+  {
+    name: "VP Internal Affairs",
+    role: "Vice President Internal",
+    yearProgram: "3rd Year | Biology & Psychology",
+    bio: "Managing internal team operations, committee coordination, and member wellness.",
+    image: "/favicon.ico"
+  },
+  {
+    name: "VP External Affairs",
+    role: "Vice President External",
+    yearProgram: "4th Year | Commerce",
+    bio: "Building local Mississauga sponsor partnerships and corporate outreach.",
+    image: "/favicon.ico"
+  },
+  {
+    name: "Events Director",
+    role: "Director of Events",
+    yearProgram: "3rd Year | Communication & Media",
+    bio: "Planning our flagship Mabuhay Night, Halo-Halo socials, and formal galas.",
+    image: "/favicon.ico"
+  },
+  {
+    name: "Marketing Lead",
+    role: "Director of Marketing",
+    yearProgram: "3rd Year | Visual Studies & Tech",
+    bio: "Designing digital graphics, social campaigns, photography, and site media.",
+    image: "/favicon.ico"
+  },
+  {
+    name: "Finance Director",
+    role: "Director of Finance",
+    yearProgram: "4th Year | Accounting",
+    bio: "Overseeing budgeting, sponsorship funds, and membership card distribution.",
+    image: "/favicon.ico"
+  }
+];
+---
+
+<section class="py-16 bg-bg-subtle border-y border-border-subtle">
+  <div class="container">
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="section-eyebrow">LEADERSHIP & EXEC BOARD</span>
+      <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-4">
+        Meet the UTMFSA Team
+      </h2>
+      <p class="text-text-muted text-base sm:text-lg">
+        Dedicated student leaders working to build an inclusive, vibrant Filipino community at UTM.
+      </p>
+    </div>
+
+    <!-- Team Cards Grid (Large Executive Photo Tiles) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      {execs.map((exec) => (
+        <div class="group overflow-hidden rounded-3xl border border-border-subtle bg-bg-card shadow-xs flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <!-- Large Image Section (Takes up most of tile) -->
+          <div class="aspect-4/3 sm:aspect-square w-full overflow-hidden bg-gradient-to-br from-primary-light via-bg-subtle to-secondary-light relative flex items-center justify-center p-6">
+            <img 
+              src={exec.image || "/favicon.ico"} 
+              alt={exec.name} 
+              class="h-32 w-32 sm:h-40 sm:w-40 object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" 
+            />
+            <!-- Overlay Badge -->
+            <span class="absolute top-4 left-4 px-3 py-1 bg-primary/95 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
+              {exec.role}
+            </span>
+          </div>
+
+          <!-- Content Section -->
+          <div class="p-6 flex-1 flex flex-col justify-between border-t border-border-subtle bg-bg-card">
+            <div>
+              <h3 class="font-headline font-bold text-xl text-text-main mb-1 leading-snug">
+                {exec.name}
+              </h3>
+              <p class="text-xs font-semibold text-primary mb-3">
+                {exec.yearProgram}
+              </p>
+              <p class="text-text-muted text-sm leading-relaxed mb-2">
+                {exec.bio}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Banner Callout: "Why Join FSA?" -->
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-primary via-primary-hover to-secondary p-8 sm:p-12 text-white shadow-xl">
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="max-w-2xl text-center md:text-left">
+          <span class="inline-block px-3 py-1 bg-white/15 text-gold-light text-xs font-bold uppercase tracking-widest rounded-full mb-3 backdrop-blur-md">
+            GET INVOLVED
+          </span>
+          <h3 class="text-2xl sm:text-4xl font-headline font-bold text-white mb-3">
+            Interested in Joining the Team or Community?
+          </h3>
+          <p class="text-white/85 text-base leading-relaxed">
+            Discover why UTMFSA is one of the most active campus clubs at UTM. Explore executive roles, associate positions, and general membership opportunities!
+          </p>
+        </div>
+        <a 
+          href="/join" 
+          class="btn-primary bg-white text-primary hover:bg-gold-light hover:text-text-main font-bold text-base px-8 py-4 shadow-lg shrink-0 border border-white/20"
+        >
+          <span>Why Join FSA?</span>
+          <Icon name="arrowRight" size={18} />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

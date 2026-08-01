@@ -1,0 +1,183 @@
+---
+import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+
+const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/sponsors/*.{jpeg,jpg,png,gif,svg,webp}",
+  { eager: true }
+);
+
+interface SponsorItem {
+  id: string;
+  name: string;
+  category: string;
+  discount: string;
+  description: string;
+  perks: string[];
+  location: string;
+  imageFileName?: string;
+  icon: string;
+}
+
+const sponsors: SponsorItem[] = [
+  {
+    id: "chatime",
+    name: "Chatime UTM",
+    category: "Boba & Teas",
+    discount: "10% Off",
+    description: "Exclusive discount on all regular-priced bubble teas and specialty drinks at local Mississauga Chatime locations.",
+    perks: ["10% off drinks", "Free size upgrade on member birthdays"],
+    location: "Mississauga Locations",
+    imageFileName: "chatime.svg",
+    icon: "sparkles"
+  },
+  {
+    id: "manila-bakes",
+    name: "Grotto",
+    category: "Bakery & Food",
+    discount: "Special Perk",
+    description: "Authentic Filipino baked goods, pandesal, and specialty desserts with exclusive member combo pricing.",
+    perks: ["15% off orders over $20", "Exclusive combo deals"],
+    location: "Mississauga",
+    imageFileName: "grotto.png",
+    icon: "shoppingBag"
+  },
+  {
+    id: "tagpuan",
+    name: "Tagpuan Filipino Restaurant",
+    category: "Food & Drinks",
+    discount: "15% Off",
+    description: "Traditional silog meals, adobo, and street food favorites for UTMFSA cardholders.",
+    perks: ["15% off dine-in and takeout", "Special student meal combos"],
+    location: "Mississauga",
+    imageFileName: "tagpuan.png",
+    icon: "badge"
+  },
+  {
+    id: "thirstea",
+    name: "Thirstea Teatime",
+    category: "Boba & Teas",
+    discount: "Free Topping",
+    description: "Enjoy a free topping of your choice (boba, jelly, egg pudding) with any large tea purchase.",
+    perks: ["Free topping per drink", "10% off food menu items"],
+    location: "Near UTM Campus",
+    imageFileName: "thirstea.png",
+    icon: "badge"
+  },
+  {
+    id: "trapped",
+    name: "TRAPPED Escape Room",
+    category: "Entertainment",
+    discount: "10% Off",
+    description: "Immersive escape rooms and team puzzle experiences in Mississauga for UTMFSA members.",
+    perks: ["10% off group bookings", "Free extra clue on hard rooms"],
+    location: "Dundas St W, Mississauga",
+    imageFileName: "trapped.png",
+    icon: "badge"
+  },
+  {
+    id: "utmsu",
+    name: "UTM Student Union (UTMSU)",
+    category: "Campus Partner",
+    discount: "Campus Support",
+    description: "Official campus student union support, event sponsorship, and student funding partner.",
+    perks: ["Campus venue access", "Student grant partnerships"],
+    location: "UTM Student Centre",
+    icon: "users"
+  }
+];
+---
+
+<section class="py-16 bg-bg-subtle border-t border-border-subtle">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="section-eyebrow">MEMBER PERKS & DISCOUNTS</span>
+      <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-4">
+        Sponsors & Benefits Breakdown
+      </h2>
+      <p class="text-text-muted text-base sm:text-lg">
+        Flash your digital or physical UTMFSA VIP membership card at participating Mississauga locations to instantly redeem discounts!
+      </p>
+    </div>
+
+    <!-- Sponsor Deals Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+      {sponsors.map((sponsor) => {
+        const imageKey = sponsor.imageFileName ? `/src/assets/sponsors/${sponsor.imageFileName}` : undefined;
+        const imageAsset = imageKey ? sponsorImages[imageKey]?.default : undefined;
+
+        return (
+          <div class="rounded-2xl border border-border-subtle bg-bg-card p-6 shadow-xs flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
+            <div>
+              <!-- Header Row -->
+              <div class="flex items-center justify-between gap-4 mb-4 pb-4 border-b border-border-subtle">
+                <div class="flex items-center gap-3">
+                  {imageAsset ? (
+                    <Image src={imageAsset} alt={sponsor.name} class="h-10 w-auto max-w-[120px] object-contain" />
+                  ) : (
+                    <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light text-primary font-bold">
+                      <Icon name={sponsor.icon} size={20} />
+                    </span>
+                  )}
+                </div>
+                <span class="px-3 py-1 bg-secondary-light text-secondary font-bold text-xs rounded-full border border-secondary/20">
+                  {sponsor.discount}
+                </span>
+              </div>
+
+              <!-- Content -->
+              <h3 class="font-headline font-bold text-lg text-text-main mb-1">
+                {sponsor.name}
+              </h3>
+              <span class="inline-block text-xs font-semibold text-text-muted mb-3">
+                {sponsor.category} • {sponsor.location}
+              </span>
+              <p class="text-text-muted text-sm leading-relaxed mb-4">
+                {sponsor.description}
+              </p>
+
+              <!-- List of Perks -->
+              <div class="space-y-1.5 mb-4">
+                {sponsor.perks.map((perk) => (
+                  <div class="flex items-center gap-2 text-xs font-medium text-text-main">
+                    <span class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
+                    <span>{perk}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <!-- Footer indicator -->
+            <div class="pt-3 border-t border-border-subtle flex items-center justify-between text-xs text-primary font-bold">
+              <span>Show VIP Card to Redeem</span>
+              <Icon name="arrowRight" size={14} />
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Sponsor Outreach Callout Box: "Want to get in touch with us?" -->
+    <div class="rounded-3xl border border-primary/20 bg-gradient-to-br from-primary-light via-bg-card to-bg-subtle p-8 sm:p-12 text-text-main shadow-md">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="max-w-2xl text-center md:text-left">
+          <span class="section-eyebrow">PARTNERSHIP OPPORTUNITIES</span>
+          <h3 class="text-2xl sm:text-3xl font-headline font-bold text-text-main mb-3">
+            Want to Get in Touch With Us as a Sponsor?
+          </h3>
+          <p class="text-text-muted text-base leading-relaxed">
+            Connect your brand directly with hundreds of UTM students, sponsor flagship cultural events, and feature your exclusive deals on our platform!
+          </p>
+        </div>
+        <a 
+          href="/contact-us?type=sponsor" 
+          class="btn-primary text-base px-8 py-3.5 shadow-lg shrink-0"
+        >
+          <span>Become a Sponsor</span>
+          <Icon name="arrowRight" size={18} />
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

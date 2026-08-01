@@ -1,0 +1,77 @@
+---
+interface HistoryMilestone {
+  year: string;
+  title: string;
+  description: string;
+}
+
+const milestones: HistoryMilestone[] = [
+  {
+    year: "Founding Era",
+    title: "Established at UTM",
+    description: "UTMFSA was created by passionate student organizers seeking to cultivate a welcoming home for Filipino students and friends at the University of Toronto Mississauga."
+  },
+  {
+    year: "Growth & Culture",
+    title: "First Mabuhay Night",
+    description: "Launched our flagship annual cultural showcase, bringing traditional dance, food, and music performances to the UTM campus."
+  },
+  {
+    year: "Sponsorship Expansion",
+    title: "Mississauga Local Business Perks",
+    description: "Partnered with premier local food and lifestyle businesses across Mississauga to launch the UTMFSA VIP Member Discount Card."
+  },
+  {
+    year: "Today & Beyond",
+    title: "Vibrant Student Community",
+    description: "Continuing our commitment to cultural expression, academic support, community outreach, and unforgettable social gatherings."
+  }
+];
+---
+
+<section class="py-16 bg-bg-main">
+  <div class="container">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="section-eyebrow">OUR JOURNEY</span>
+      <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-4">
+        History & Traditions
+      </h2>
+      <p class="text-text-muted text-base sm:text-lg">
+        Building community, preserving culture, and creating memories at UTM over the years.
+      </p>
+    </div>
+
+    <!-- Timeline Grid -->
+    <div class="relative max-w-4xl mx-auto">
+      <!-- Central vertical line for desktop -->
+      <div class="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-border-subtle -translate-x-1/2"></div>
+
+      <div class="space-y-8 md:space-y-12">
+        {milestones.map((item, index) => (
+          <div class={`flex flex-col md:flex-row items-center gap-6 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
+            <!-- Content Box -->
+            <div class="w-full md:w-1/2 p-6 rounded-2xl border border-border-subtle bg-bg-card shadow-xs">
+              <span class="inline-block text-xs font-bold text-secondary uppercase tracking-widest mb-1 px-3 py-1 bg-secondary-light rounded-full">
+                {item.year}
+              </span>
+              <h3 class="text-xl font-headline font-bold text-text-main mb-2">
+                {item.title}
+              </h3>
+              <p class="text-text-muted text-sm leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+
+            <!-- Central Timeline Circle -->
+            <div class="relative flex items-center justify-center shrink-0 w-10 h-10 rounded-full bg-primary text-text-inverse font-bold text-sm shadow-md border-4 border-bg-main z-10">
+              {index + 1}
+            </div>
+
+            <!-- Spacer for opposite side alignment -->
+            <div class="hidden md:block w-1/2"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

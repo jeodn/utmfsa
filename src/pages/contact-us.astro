@@ -1,0 +1,26 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ContactTabs from "../components/ContactTabs.astro";
+---
+
+<Layout title="UTMFSA | Contact Us" description="Get in touch with the UTM Filipino Students' Association. Student inquiries, membership support, and sponsor partnership forms.">
+  <!-- Page Header -->
+  <section class="py-16 sm:py-20 bg-bg-subtle border-b border-border-subtle text-center">
+    <div class="container max-w-4xl">
+      <span class="section-eyebrow">GET IN TOUCH</span>
+      <h1 class="text-4xl sm:text-6xl font-headline font-bold text-text-main tracking-tight mb-4">
+        Contact UTMFSA
+      </h1>
+      <p class="text-text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
+        Whether you are a student looking to get involved or a local business wanting to partner with us, we’d love to hear from you.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive Dual-Path Contact Tabs Section -->
+  <section class="py-16 bg-bg-main">
+    <div class="container">
+      <ContactTabs />
+    </div>
+  </section>
+</Layout>

@@ -1,16 +1,17 @@
 ---
 import { getImage } from "astro:assets";
 import galaBg from "../assets/images/gala.JPG";
-import Icon from "./Icon.astro";
 
 interface Props {
   slogan?: string;
   subheading?: string;
+  videoUrl?: string; // Optional background video URL (.mp4 / .webm) or animated GIF
 }
 
 const {
   slogan = "Sama-Sama: United in Culture, Community, and Connection",
-  subheading = "Your home away from home at the University of Toronto Mississauga."
+  subheading = "Your home away from home at the University of Toronto Mississauga.",
+  videoUrl
 } = Astro.props;
 
 const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'webp' });
@@ -20,13 +21,27 @@ const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'we
   id="hero-splash" 
   class="relative w-full h-screen min-h-[600px] flex flex-col justify-between items-center text-center px-4 pt-24 pb-12 overflow-hidden bg-text-main text-text-inverse select-none"
 >
-  <!-- Background Image with Ambient Overlay -->
-  <div 
-    class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
-    style={`background-image: url('${optimizedSplashBg.src}');`}
-  ></div>
+  <!-- Background Media (Video/GIF support with Image Fallback) -->
+  {videoUrl ? (
+    <video 
+      autoplay 
+      loop 
+      muted 
+      playsinline 
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none scale-105"
+      poster={optimizedSplashBg.src}
+    >
+      <source src={videoUrl} type="video/mp4" />
+      <source src={videoUrl} type="video/webm" />
+    </video>
+  ) : (
+    <div 
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
+      style={`background-image: url('${optimizedSplashBg.src}');`}
+    ></div>
+  )}
 
-  <!-- Deep Dark Gradient & Vignette Overlays -->
+  <!-- Deep Dark Gradient & Vignette Overlays for High Contrast Text -->
   <div class="absolute inset-0 bg-gradient-to-b from-text-main/80 via-text-main/55 to-text-main/90 pointer-events-none"></div>
   <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(15,23,42,0.6)_100%)] pointer-events-none"></div>
 
@@ -62,17 +77,6 @@ const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'we
     <p class="max-w-2xl text-white/80 text-base sm:text-xl leading-relaxed font-normal px-4 drop-shadow">
       {subheading}
     </p>
-
-    <!-- Quick CTA buttons on splash -->
-    <div class="mt-2 flex flex-wrap items-center justify-center gap-4">
-      <a href="#hero-content" class="btn-primary bg-primary hover:bg-primary-hover text-white text-sm px-7 py-3 shadow-lg shadow-primary/30 border border-white/20">
-        <span>Explore UTMFSA</span>
-        <Icon name="arrowRight" size={16} />
-      </a>
-      <a href="/join" class="btn-subtle bg-white/10 hover:bg-white/20 text-white border-white/30 text-sm px-7 py-3 backdrop-blur-md">
-        <span>Why Join FSA?</span>
-      </a>
-    </div>
   </div>
 
   <!-- Bottom Scroll Prompt Chevron -->

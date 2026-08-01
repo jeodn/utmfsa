@@ -1,0 +1,110 @@
+---
+interface GalleryItem {
+  src: string;
+  title: string;
+  category?: string;
+  caption?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  items?: GalleryItem[];
+}
+
+const {
+  title = "FSA Moments & Memories",
+  subtitle = "A glimpse into our community events, cultural performances, and flagship gatherings.",
+  items = [
+    {
+      src: "/gala.jpg",
+      title: "Formal Gala Night",
+      category: "Flagship",
+      caption: "Dressed to impress at our annual year-end celebration."
+    },
+    {
+      src: "/philippinesweb.jpg",
+      title: "Cultural Heritage Showcase",
+      category: "Culture",
+      caption: "Celebrating traditional Filipino customs and music."
+    },
+    {
+      src: "/grotto.png",
+      title: "Local Sponsor Gathering",
+      category: "Community",
+      caption: "Connecting members with local Mississauga food partners."
+    },
+    {
+      src: "/tagpuan.png",
+      title: "Sponsor Partner Spotlight",
+      category: "Perks",
+      caption: "Tagpuan dining discounts for UTMFSA VIP cardholders."
+    },
+    {
+      src: "/chatime.png",
+      title: "Chatime Boba Hangout",
+      category: "Social",
+      caption: "Chilling over bubble tea with fellow FSA members."
+    },
+    {
+      src: "/thirstea.png",
+      title: "Thirstea Teatime",
+      category: "Social",
+      caption: "Post-midterm study sessions and refreshes."
+    }
+  ]
+} = Astro.props;
+---
+
+<section class="py-16 bg-bg-main">
+  <div class="container">
+    <!-- Header -->
+    <div class="text-center max-w-3xl mx-auto mb-12">
+      <span class="section-eyebrow">PHOTO GALLERY</span>
+      <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-4">
+        {title}
+      </h2>
+      <p class="text-text-muted text-base sm:text-lg">
+        {subtitle}
+      </p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((item, idx) => (
+        <div class="group relative overflow-hidden rounded-2xl border border-border-subtle bg-bg-card shadow-xs transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+          <!-- Image Container -->
+          <div class="aspect-4/3 w-full overflow-hidden bg-bg-subtle relative">
+            <img
+              src={item.src}
+              alt={item.title}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-text-main/80 via-text-main/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
+              <span class="inline-block px-3 py-1 bg-primary text-text-inverse text-xs font-bold rounded-full w-fit mb-2">
+                {item.category || "Moment"}
+              </span>
+              <h3 class="text-xl font-headline font-bold text-white mb-1">
+                {item.title}
+              </h3>
+              <p class="text-white/80 text-xs line-clamp-2">
+                {item.caption}
+              </p>
+            </div>
+          </div>
+          
+          <!-- Default Footer Label for accessibility & non-hover view -->
+          <div class="p-4 flex items-center justify-between border-t border-border-subtle bg-bg-card">
+            <span class="font-headline font-bold text-sm text-text-main">
+              {item.title}
+            </span>
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-primary-light text-primary">
+              {item.category || "UTMFSA"}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

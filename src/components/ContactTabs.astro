@@ -1,0 +1,184 @@
+---
+import Icon from "./Icon.astro";
+import { siteConfig } from "../config/site.config";
+---
+
+<div class="w-full max-w-4xl mx-auto">
+  <!-- Tab Switcher Header Buttons -->
+  <div class="flex items-center justify-center p-1.5 rounded-2xl bg-bg-subtle border border-border-subtle mb-10 w-fit mx-auto shadow-xs">
+    <button
+      id="tab-student-btn"
+      class="px-6 py-3 rounded-xl text-sm font-bold transition-all bg-primary text-text-inverse shadow-sm flex items-center gap-2 cursor-pointer"
+      data-tab-target="student"
+    >
+      <Icon name="users" size={18} />
+      <span>I am a Student</span>
+    </button>
+    <button
+      id="tab-sponsor-btn"
+      class="px-6 py-3 rounded-xl text-sm font-bold text-text-muted hover:text-text-main transition-all flex items-center gap-2 cursor-pointer"
+      data-tab-target="sponsor"
+    >
+      <Icon name="badge" size={18} />
+      <span>I am a Business / Sponsor</span>
+    </button>
+  </div>
+
+  <!-- Student Contact Content Panel -->
+  <div id="panel-student" class="tab-panel transition-all duration-300">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      <!-- Left Info Box -->
+      <div class="p-8 rounded-3xl border border-border-subtle bg-bg-card shadow-xs">
+        <span class="section-eyebrow">STUDENT INQUIRIES</span>
+        <h3 class="text-2xl font-headline font-bold text-text-main mb-3">
+          Get in Touch with UTMFSA
+        </h3>
+        <p class="text-text-muted text-sm leading-relaxed mb-6">
+          Have questions about membership, upcoming events, or executive applications? Reach out directly to our team!
+        </p>
+
+        <div class="space-y-4 text-sm font-semibold">
+          <div class="flex items-center gap-3 text-text-main">
+            <span class="p-2 rounded-xl bg-primary-light text-primary">
+              <Icon name="sparkles" size={18} />
+            </span>
+            <span>Instagram: <a href={siteConfig.contact.instagramUrl} target="_blank" rel="noreferrer" class="text-primary hover:underline">{siteConfig.contact.instagramHandle}</a></span>
+          </div>
+
+          <div class="flex items-center gap-3 text-text-main">
+            <span class="p-2 rounded-xl bg-secondary-light text-secondary">
+              <Icon name="users" size={18} />
+            </span>
+            <span>Discord: <a href={siteConfig.contact.discordUrl} target="_blank" rel="noreferrer" class="text-primary hover:underline">UTMFSA Member Lounge</a></span>
+          </div>
+
+          <div class="flex items-center gap-3 text-text-main">
+            <span class="p-2 rounded-xl bg-gold-light text-text-main">
+              <Icon name="badge" size={18} />
+            </span>
+            <span>Email: <a href={`mailto:${siteConfig.contact.studentEmail}`} class="text-primary hover:underline">{siteConfig.contact.studentEmail}</a></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Form Box -->
+      <form class="p-8 rounded-3xl border border-border-subtle bg-bg-card shadow-xs space-y-4" onsubmit="event.preventDefault(); alert('Thank you for reaching out! A UTMFSA exec will respond shortly.');">
+        <h4 class="font-headline font-bold text-lg text-text-main mb-2">Send Us a Message</h4>
+        <div>
+          <label class="block text-xs font-bold text-text-main uppercase mb-1">Your Name</label>
+          <input type="text" placeholder="Full Name" required class="w-full px-4 py-2.5 rounded-xl border border-border-subtle bg-bg-subtle text-sm text-text-main focus:outline-primary" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-text-main uppercase mb-1">UofT Email</label>
+          <input type="email" placeholder="name@mail.utoronto.ca" required class="w-full px-4 py-2.5 rounded-xl border border-border-subtle bg-bg-subtle text-sm text-text-main focus:outline-primary" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-text-main uppercase mb-1">Message</label>
+          <textarea rows="4" placeholder="How can we help you?" required class="w-full px-4 py-2.5 rounded-xl border border-border-subtle bg-bg-subtle text-sm text-text-main focus:outline-primary"></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-full justify-center py-3">
+          <span>Submit Student Inquiry</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sponsor Contact Content Panel (Hidden by Default) -->
+  <div id="panel-sponsor" class="tab-panel hidden transition-all duration-300">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      <!-- Left Info Box -->
+      <div class="p-8 rounded-3xl border border-primary/20 bg-gradient-to-br from-primary-light/50 via-bg-card to-bg-subtle shadow-xs">
+        <span class="section-eyebrow">SPONSORSHIP & PARTNERSHIPS</span>
+        <h3 class="text-2xl font-headline font-bold text-text-main mb-3">
+          Partner with UTMFSA
+        </h3>
+        <p class="text-text-muted text-sm leading-relaxed mb-6">
+          Connect your business with hundreds of UTM students, sponsor flagship events like Mabuhay Night & Gala, and list your discount perks on our website.
+        </p>
+
+        <div class="space-y-3 mb-6 text-xs text-text-main font-semibold">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            <span>Custom Member Discount Listing & Visibility</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            <span>Social Media & Event Booth Promotions</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
+            <span>Direct Access to UTM Student Demographic</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-bg-card border border-border-subtle text-xs text-text-muted">
+          <strong class="block text-text-main mb-1">Corporate Relations Contact:</strong>
+          <span>Email: <a href={`mailto:${siteConfig.contact.sponsorEmail}`} class="text-primary font-bold">{siteConfig.contact.sponsorEmail}</a></span>
+        </div>
+      </div>
+
+      <!-- Right Sponsor Form Box -->
+      <form class="p-8 rounded-3xl border border-border-subtle bg-bg-card shadow-xs space-y-4" onsubmit="event.preventDefault(); alert('Thank you! Our Corporate Relations Director will get back to you with our sponsorship deck.');">
+        <h4 class="font-headline font-bold text-lg text-text-main mb-2">Send Us a Message</h4>
+        <div>
+          <label class="block text-xs font-bold text-text-main uppercase mb-1">Company / Business Name</label>
+          <input type="text" placeholder="e.g. Chatime Mississauga" required class="w-full px-4 py-2.5 rounded-xl border border-border-subtle bg-bg-subtle text-sm text-text-main focus:outline-primary" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-text-main uppercase mb-1">Contact Email</label>
+          <input type="email" placeholder="contact@business.com" required class="w-full px-4 py-2.5 rounded-xl border border-border-subtle bg-bg-subtle text-sm text-text-main focus:outline-primary" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-text-main uppercase mb-1">Proposed Partnership / Perks</label>
+          <textarea rows="4" placeholder="Tell us about your business and proposed discount or sponsorship package..." required class="w-full px-4 py-2.5 rounded-xl border border-border-subtle bg-bg-subtle text-sm text-text-main focus:outline-primary"></textarea>
+        </div>
+        <button type="submit" class="btn-primary w-full justify-center py-3">
+          <span>Request Sponsorship Deck</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupContactTabs() {
+    const studentBtn = document.getElementById('tab-student-btn');
+    const sponsorBtn = document.getElementById('tab-sponsor-btn');
+    const studentPanel = document.getElementById('panel-student');
+    const sponsorPanel = document.getElementById('panel-sponsor');
+
+    if (!studentBtn || !sponsorBtn || !studentPanel || !sponsorPanel) return;
+
+    // Check URL parameters for ?type=sponsor
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('type') === 'sponsor') {
+      showSponsor();
+    }
+
+    function showStudent() {
+      studentBtn.classList.add('bg-primary', 'text-text-inverse', 'shadow-sm');
+      studentBtn.classList.remove('text-text-muted');
+      sponsorBtn.classList.remove('bg-primary', 'text-text-inverse', 'shadow-sm');
+      sponsorBtn.classList.add('text-text-muted');
+
+      studentPanel.classList.remove('hidden');
+      sponsorPanel.classList.add('hidden');
+    }
+
+    function showSponsor() {
+      sponsorBtn.classList.add('bg-primary', 'text-text-inverse', 'shadow-sm');
+      sponsorBtn.classList.remove('text-text-muted');
+      studentBtn.classList.remove('bg-primary', 'text-text-inverse', 'shadow-sm');
+      studentBtn.classList.add('text-text-muted');
+
+      sponsorPanel.classList.remove('hidden');
+      studentPanel.classList.add('hidden');
+    }
+
+    studentBtn.addEventListener('click', showStudent);
+    sponsorBtn.addEventListener('click', showSponsor);
+  }
+
+  setupContactTabs();
+  document.addEventListener('astro:page-load', setupContactTabs);
+</script>

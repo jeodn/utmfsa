@@ -1,22 +1,80 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Hero from "../components/Hero.astro";
-import SponsorRibbon from "../components/SponsorRibbon.astro";
 import MembershipCard3D from "../components/MembershipCard3D.astro";
-import AboutSection from "../components/AboutSection.astro";
+import SponsorDealsBreakdown from "../components/SponsorDealsBreakdown.astro";
+import SponsorRibbon from "../components/SponsorRibbon.astro";
+import Icon from "../components/Icon.astro";
 ---
 
-<Layout title="UTMFSA | Membership Card">
-  <!-- Apple-Style 3D Scroll-Rotating Membership Card Section -->
-  <div id="membership">
+<Layout title="UTMFSA | VIP Membership Card" description="Unlock exclusive discounts across Mississauga food, drinks, and entertainment with the official UTMFSA VIP Member Card.">
+  <!-- Page Hero Header -->
+  <section class="py-16 sm:py-20 bg-bg-subtle border-b border-border-subtle text-center">
+    <div class="container max-w-4xl">
+      <span class="section-eyebrow">DIGITAL & PHYSICAL VIP CARD</span>
+      <h1 class="text-4xl sm:text-6xl font-headline font-bold text-text-main tracking-tight mb-4">
+        Your VIP Pass to UTMFSA & Mississauga Perks
+      </h1>
+      <p class="text-text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
+        Join UTMFSA as a member to enjoy instant access to year-round discounts, priority event tickets, and exclusive local partner deals.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive 3D Card Display -->
+  <div id="membership-card">
     <MembershipCard3D />
   </div>
 
-  <!-- Sponsor Ribbon Marquee -->
-  <div id="sponsors">
-    <SponsorRibbon slogan="SPONSORS & PARTNERS" />
-  </div>
+  <!-- What is this Card Explainer Section -->
+  <section class="py-16 bg-bg-main border-y border-border-subtle">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center mb-12">
+        <span class="section-eyebrow">CARD OVERVIEW</span>
+        <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main mb-4">
+          What is the UTMFSA VIP Card?
+        </h2>
+        <p class="text-text-muted text-base sm:text-lg">
+          The UTMFSA VIP Member Card is your all-access pass to student perks, cultural events, and savings across the Mississauga community.
+        </p>
+      </div>
 
-  <!-- Hero Section -->
-  <Hero />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="p-6 rounded-2xl border border-border-subtle bg-bg-card shadow-xs">
+          <div class="h-12 w-12 rounded-xl bg-primary-light text-primary flex items-center justify-center mb-4">
+            <Icon name="badge" size={24} />
+          </div>
+          <h3 class="font-headline font-bold text-lg text-text-main mb-2">Year-Round Discounts</h3>
+          <p class="text-text-muted text-sm leading-relaxed">
+            Redeem 10%-15% off at your favorite Mississauga food, boba, bakery, and entertainment spots simply by showing your card.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-border-subtle bg-bg-card shadow-xs">
+          <div class="h-12 w-12 rounded-xl bg-secondary-light text-secondary flex items-center justify-center mb-4">
+            <Icon name="star" size={24} />
+          </div>
+          <h3 class="font-headline font-bold text-lg text-text-main mb-2">Priority Event Access</h3>
+          <p class="text-text-muted text-sm leading-relaxed">
+            Get early-bird ticket access and discounted pricing for Mabuhay Night, Welcome Socials, and the Formal Gala.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-border-subtle bg-bg-card shadow-xs">
+          <div class="h-12 w-12 rounded-xl bg-gold-light text-text-main flex items-center justify-center mb-4">
+            <Icon name="sparkles" size={24} />
+          </div>
+          <h3 class="font-headline font-bold text-lg text-text-main mb-2">Digital & Physical Card</h3>
+          <p class="text-text-muted text-sm leading-relaxed">
+            Store your pass digitally on your phone or pick up a physical physical VIP card at any UTMFSA booth or event.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sponsor & Benefits Breakdown Component -->
+  <SponsorDealsBreakdown />
+
+  <!-- Continuous Sponsor Ribbon -->
+  <SponsorRibbon slogan="OUR OFFICIAL SPONSOR NETWORK" />
 </Layout>
