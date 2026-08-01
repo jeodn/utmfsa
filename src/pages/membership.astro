@@ -6,20 +6,17 @@ import MembershipCard3D from "../components/MembershipCard3D.astro";
 import AboutSection from "../components/AboutSection.astro";
 ---
 
-<Layout title="UTMFSA | UTM Filipino Students' Association">
-  <!-- Hero Section -->
-  <Hero />
+<Layout title="UTMFSA | Membership Card">
+  <!-- Apple-Style 3D Scroll-Rotating Membership Card Section -->
+  <div id="membership">
+    <MembershipCard3D />
+  </div>
 
   <!-- Sponsor Ribbon Marquee -->
   <div id="sponsors">
     <SponsorRibbon slogan="SPONSORS & PARTNERS" />
   </div>
 
-  <!-- About Section (from astro-chalet style) -->
-  <AboutSection />
-
-  <!-- Apple-Style 3D Scroll-Rotating Membership Card Section -->
-  <div id="membership">
-    <MembershipCard3D />
-  </div>
+  <!-- Hero Section -->
+  <Hero />
 </Layout>

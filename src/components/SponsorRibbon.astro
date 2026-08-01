@@ -32,17 +32,17 @@ interface Props {
 }
 
 const {
-  slogan = "OFFICIAL UTMFSA SPONSORS & PARTNERS",
+  slogan = "SPONSORS & PARTNERS",
   minCopies = 2,
 } = Astro.props;
 ---
 
-<div class="pointer-events-none w-full bg-bg-subtle text-text-main select-none border-y border-border-subtle py-3 overflow-hidden shadow-xs">
+<div class="pointer-events-none w-full bg-bg-subtle text-text-main select-none border-y border-border-subtle py-5 overflow-hidden shadow-xs">
   <!-- Mobile Slogan Header -->
-  <div class="mx-auto flex w-full items-center justify-center gap-1.5 px-4 pt-1 pb-3 text-center md:hidden border-b border-border-subtle">
-    <Icon name="star" size={14} class="text-gold shrink-0" />
+  <div class="mx-auto flex w-full items-center justify-center gap-1.5 px-4 pt-1 pb-5 text-center md:hidden border-b border-border-subtle">
+    <Icon name="badge" size={22} class="text-primary shrink-0" />
     <span class="px-2 text-xs font-bold uppercase tracking-wider text-text-main">{slogan}</span>
-    <Icon name="star" size={14} class="text-gold shrink-0" />
+    <Icon name="badge" size={22} class="text-primary shrink-0" />
   </div>
 
   <!-- Main Marquee Container (Logos Only) -->
