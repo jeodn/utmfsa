@@ -6,11 +6,13 @@ import Footer from "../components/Footer.astro";
 interface Props {
   title?: string;
   description?: string;
+  transparentHeader?: boolean;
 }
 
 const {
   title = "UTMFSA | UTM Filipino Students' Association",
-  description = "Official website of the University of Toronto Mississauga Filipino Students' Association (UTMFSA). Culture, community, events, and membership perks."
+  description = "Official website of the University of Toronto Mississauga Filipino Students' Association (UTMFSA). Culture, community, events, and membership perks.",
+  transparentHeader = false
 } = Astro.props;
 ---
 
@@ -30,7 +32,7 @@ const {
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
   </head>
   <body class="bg-white text-slate-900 antialiased min-h-screen flex flex-col justify-between">
-    <Header />
+    <Header transparent={transparentHeader} />
     <main class="w-full flex-1">
       <slot />
     </main>

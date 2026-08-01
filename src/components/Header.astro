@@ -1,27 +1,63 @@
 ---
+interface Props {
+  transparent?: boolean;
+}
+
+const { transparent = false } = Astro.props;
 ---
 
-<header class="sticky top-0 z-50 w-full border-b border-border-subtle bg-bg-main/95 backdrop-blur-md text-text-main shadow-xs">
+<header
+  id="site-header"
+  class:list={[
+    "top-0 z-50 w-full transition-all duration-300 border-b",
+    transparent ? "fixed header-transparent text-white border-transparent bg-gradient-to-b from-text-main/80 via-text-main/40 to-transparent" : "sticky bg-bg-main/95 backdrop-blur-md text-text-main border-border-subtle shadow-xs"
+  ]}
+  data-transparent={transparent ? "true" : "false"}
+>
   <div class="container flex h-16 items-center justify-between">
     <!-- Brand Logo -->
-    <a href="/" class="flex items-center gap-3 no-underline text-text-main hover:opacity-90 transition-opacity">
+    <a href="/" class="flex items-center gap-3 no-underline text-current hover:opacity-90 transition-opacity">
       <img src="/favicon.ico" alt="UTMFSA Logo" class="h-8 w-8 object-contain rounded-md" />
-      <span class="font-headline font-bold text-xl tracking-tight text-text-main">UTMFSA</span>
+      <span class="font-headline font-bold text-xl tracking-tight">UTMFSA</span>
     </a>
 
     <!-- Nav Links -->
-    <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-text-muted">
-      <a href="/about-us" class="unstyle-link hover:text-primary transition-colors">About</a>
-      <a href="/sponsors" class="unstyle-link hover:text-primary transition-colors">Sponsors</a>
+    <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
+      <a href="/about-us" class="unstyle-link hover:text-primary transition-colors">About Us</a>
       <a href="/membership" class="unstyle-link hover:text-primary transition-colors">Membership VIP</a>
       <a href="/events" class="unstyle-link hover:text-primary transition-colors">Events</a>
+      <a href="/join" class="unstyle-link hover:text-primary transition-colors">Why Join?</a>
+      <a href="/contact-us" class="unstyle-link hover:text-primary transition-colors">Contact</a>
     </nav>
 
     <!-- Right Join Button -->
     <div class="flex items-center gap-3">
-      <a href="#membership" class="btn-primary text-xs px-5 py-2">
+      <a href="/join" class="btn-primary text-xs px-5 py-2 shadow-sm">
         <span>Join Club</span>
       </a>
     </div>
   </div>
 </header>
+
+<script>
+  function setupHeaderScroll() {
+    const header = document.getElementById('site-header');
+    if (!header || header.dataset.transparent !== 'true') return;
+
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        header.classList.remove('text-white', 'border-transparent', 'bg-gradient-to-b', 'from-text-main/80', 'via-text-main/40', 'to-transparent');
+        header.classList.add('bg-bg-main/95', 'backdrop-blur-md', 'text-text-main', 'border-border-subtle', 'shadow-xs');
+      } else {
+        header.classList.add('text-white', 'border-transparent', 'bg-gradient-to-b', 'from-text-main/80', 'via-text-main/40', 'to-transparent');
+        header.classList.remove('bg-bg-main/95', 'backdrop-blur-md', 'text-text-main', 'border-border-subtle', 'shadow-xs');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
+
+  setupHeaderScroll();
+  document.addEventListener('astro:page-load', setupHeaderScroll);
+</script>

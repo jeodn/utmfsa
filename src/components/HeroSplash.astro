@@ -1,0 +1,96 @@
+---
+import { getImage } from "astro:assets";
+import galaBg from "../assets/images/gala.JPG";
+import Icon from "./Icon.astro";
+
+interface Props {
+  slogan?: string;
+  subheading?: string;
+}
+
+const {
+  slogan = "Sama-Sama: United in Culture, Community, and Connection",
+  subheading = "Your home away from home at the University of Toronto Mississauga."
+} = Astro.props;
+
+const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'webp' });
+---
+
+<section 
+  id="hero-splash" 
+  class="relative w-full h-screen min-h-[600px] flex flex-col justify-between items-center text-center px-4 pt-24 pb-12 overflow-hidden bg-text-main text-text-inverse select-none"
+>
+  <!-- Background Image with Ambient Overlay -->
+  <div 
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
+    style={`background-image: url('${optimizedSplashBg.src}');`}
+  ></div>
+
+  <!-- Deep Dark Gradient & Vignette Overlays -->
+  <div class="absolute inset-0 bg-gradient-to-b from-text-main/80 via-text-main/55 to-text-main/90 pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(15,23,42,0.6)_100%)] pointer-events-none"></div>
+
+  <!-- Top Spacing adjustment for fixed header -->
+  <div class="w-full"></div>
+
+  <!-- Main Splash Slogan Content -->
+  <div class="container relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6 my-auto">
+    <!-- Club Pill Badge -->
+    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-white/20 bg-white/10 backdrop-blur-md text-white text-xs font-bold uppercase tracking-widest shadow-lg">
+      <span class="inline-block w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+      <span>UTM Filipino Students' Association</span>
+    </div>
+
+    <!-- Main Slogan Title -->
+    <h1 class="text-4xl sm:text-6xl md:text-7xl font-headline font-bold text-white tracking-tight leading-tight max-w-3xl drop-shadow-md">
+      {slogan.includes(":") ? (
+        <>
+          {slogan.split(":")[0]}:
+          <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gold-light to-gold">
+            {slogan.split(":")[1]}
+          </span>
+        </>
+      ) : (
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gold-light to-gold">
+          {slogan}
+        </span>
+      )}
+    </h1>
+
+    <!-- Subheading -->
+    <p class="max-w-2xl text-white/80 text-base sm:text-xl leading-relaxed font-normal px-4 drop-shadow">
+      {subheading}
+    </p>
+
+    <!-- Quick CTA buttons on splash -->
+    <div class="mt-2 flex flex-wrap items-center justify-center gap-4">
+      <a href="#hero-content" class="btn-primary bg-primary hover:bg-primary-hover text-white text-sm px-7 py-3 shadow-lg shadow-primary/30 border border-white/20">
+        <span>Explore UTMFSA</span>
+        <Icon name="arrowRight" size={16} />
+      </a>
+      <a href="/join" class="btn-subtle bg-white/10 hover:bg-white/20 text-white border-white/30 text-sm px-7 py-3 backdrop-blur-md">
+        <span>Why Join FSA?</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Bottom Scroll Prompt Chevron -->
+  <div class="relative z-10 flex flex-col items-center gap-2">
+    <a 
+      href="#hero-content" 
+      class="group inline-flex flex-col items-center gap-1.5 text-xs tracking-widest text-white/70 hover:text-white uppercase font-semibold transition-colors unstyle-link"
+      aria-label="Scroll to main content"
+    >
+      <span>Scroll down</span>
+      <svg 
+        class="w-6 h-6 text-gold animate-bounce transition-transform group-hover:translate-y-1" 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </a>
+  </div>
+</section>
