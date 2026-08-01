@@ -8,7 +8,7 @@ const imageAssets = import.meta.glob<{ default: ImageMetadata }>(
 );
 
 interface GalleryItem {
-  imageFileName: string; // e.g. "images/gala.JPG" or "sponsors/grotto.png"
+  imageFileName: string; // e.g. "images/gala.jpg" or "sponsors/grotto.png"
   title: string;
   category?: string;
   caption?: string;
@@ -25,7 +25,7 @@ const {
   subtitle = "A glimpse into our community events, cultural performances, and flagship gatherings.",
   items = [
     {
-      imageFileName: "images/gala.JPG",
+      imageFileName: "images/gala.jpg",
       title: "Formal Gala Night",
       category: "Flagship",
       caption: "Dressed to impress at our annual year-end celebration."
@@ -88,8 +88,8 @@ const {
             <!-- Image Container -->
             <div class="aspect-4/3 w-full overflow-hidden bg-bg-subtle relative flex items-center justify-center p-2">
               {asset ? (
-                <Image
-                  src={asset}
+                <img
+                  src={asset.src}
                   alt={item.title}
                   class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />

@@ -1,6 +1,6 @@
 ---
 import { getImage } from "astro:assets";
-import galaBg from "../assets/images/gala.JPG";
+import galaBg from "../assets/images/gala.jpg";
 
 interface Props {
   slogan?: string;
@@ -14,7 +14,7 @@ const {
   videoUrl
 } = Astro.props;
 
-const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'webp' });
+/* const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'webp' });*/
 ---
 
 <section 
@@ -29,7 +29,7 @@ const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'we
       muted 
       playsinline 
       class="absolute inset-0 w-full h-full object-cover pointer-events-none scale-105"
-      poster={optimizedSplashBg.src}
+      poster={galaBg.src}
     >
       <source src={videoUrl} type="video/mp4" />
       <source src={videoUrl} type="video/webm" />
@@ -37,7 +37,7 @@ const optimizedSplashBg = await getImage({ src: galaBg, quality: 80, format: 'we
   ) : (
     <div 
       class="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
-      style={`background-image: url('${optimizedSplashBg.src}');`}
+      style={`background-image: url('${galaBg.src}');`}
     ></div>
   )}
 

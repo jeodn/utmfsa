@@ -2,7 +2,7 @@
 import Icon from "./Icon.astro";
 import { Image, getImage } from "astro:assets";
 import bgImage from "../assets/images/gala.jpg";
-import heroSideImage from "../assets/images/feeding.JPG";
+import heroSideImage from "../assets/images/feeding.jpg";
 
 const optimizedBg = await getImage({ src: bgImage });
 ---
@@ -46,9 +46,11 @@ const optimizedBg = await getImage({ src: bgImage });
     <!-- Right Column: Image next to the title text -->
     <div class="lg:col-span-5 flex justify-center w-full">
       <div class="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl border border-white/20 transform hover:scale-[1.02] transition-transform duration-300">
-        <Image 
-          src={heroSideImage} 
-          alt="UTMFSA Community Event" 
+        <img
+          src={heroSideImage.src}
+          alt="UTMFSA Community Event"
+          loading="lazy"
+          decoding="async"
           class="w-full h-80 sm:h-96 object-cover"
         />
         <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none"></div>

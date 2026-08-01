@@ -70,7 +70,7 @@ const {
           return (
             <div class="sponsor-card inline-flex items-center gap-3.5 rounded-full border border-border-subtle bg-bg-card px-5 py-2 shadow-xs transition-transform hover:scale-[1.02] hover:border-primary-hover mx-3 shrink-0">
               {imageAsset ? (
-                <Image src={imageAsset} alt={sponsor.name} class="h-7 w-auto object-contain shrink-0 max-w-[110px]" />
+                <img src={imageAsset.src} alt={sponsor.name} class="h-7 w-auto object-contain shrink-0 max-w-[110px]" />
               ) : (
                 <span class="flex h-9 w-9 items-center justify-center rounded-full bg-primary-light text-primary shrink-0 border border-primary/20">
                   <Icon name={sponsor.icon} size={18} />

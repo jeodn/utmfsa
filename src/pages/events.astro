@@ -88,8 +88,8 @@ try {
                   <!-- Featured Image -->
                   <div class="aspect-16/9 w-full overflow-hidden bg-bg-subtle relative border-b border-border-subtle flex items-center justify-center">
                     {imageAsset ? (
-                      <Image
-                        src={imageAsset}
+                      <img
+                        src={imageAsset.src}
                         alt={data.title}
                         class="h-full w-full object-cover"
                       />
