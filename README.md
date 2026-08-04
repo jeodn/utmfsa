@@ -1,6 +1,6 @@
 # UTMFSA Official Website
 
-The official website for the **University of Toronto Mississauga Filipino Students' Association (UTMFSA)** — celebrating Filipino culture, student community, flagship events, and exclusive member perks at UTM.
+The official website for the **University of Toronto Mississauga Filipino Students' Association (UTMFSA)** — celebrating Filipino culture, student community, community events, and exclusive member perks at UTM.
 
 ---
 
