@@ -1,43 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getCollection, render } from "astro:content";
-import { Image } from "astro:assets";
-import Icon from "../components/Icon.astro";
-
-// Import all asset images dynamically
-const imageAssets = import.meta.glob<{ default: ImageMetadata }>(
-  "/src/assets/**/*.{jpeg,jpg,png,gif,svg,webp,JPG,JPEG,PNG}",
-  { eager: true }
-);
-
-function resolveAssetImage(imgPath?: string) {
-  if (!imgPath) return null;
-
-  let path = imgPath.trim();
-  if (!path.startsWith("/src/assets/")) {
-    if (path.startsWith("/images/")) {
-      path = `/src/assets${path}`;
-    } else if (path.startsWith("/")) {
-      path = `/src/assets/images${path}`;
-    } else {
-      path = `/src/assets/images/${path}`;
-    }
-  }
-
-  if (imageAssets[path]) {
-    return imageAssets[path].default;
-  }
-
-  // Case-insensitive lookup fallback (e.g. .jpg vs .JPG)
-  const lowerPath = path.toLowerCase();
-  for (const [key, value] of Object.entries(imageAssets)) {
-    if (key.toLowerCase() === lowerPath) {
-      return value.default;
-    }
-  }
-
-  return null;
-}
 
 let eventPostsWithContent: any[] = [];
 try {
@@ -46,11 +9,9 @@ try {
     eventPostsWithContent = await Promise.all(
       collection.map(async (event) => {
         const { Content } = await render(event);
-        const imageAsset = resolveAssetImage(event.data.featuredImage);
         return {
           ...event,
           Content,
-          imageAsset,
         };
       })
     );
@@ -80,20 +41,14 @@ try {
       {eventPostsWithContent && eventPostsWithContent.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {eventPostsWithContent.map((event) => {
-            const { Content, data, imageAsset } = event;
+            const { Content, data } = event;
 
             return (
               <article class="rounded-2xl border border-border-subtle bg-bg-card overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
                 <div>
                   <!-- Featured Image -->
                   <div class="aspect-16/9 w-full overflow-hidden bg-bg-subtle relative border-b border-border-subtle flex items-center justify-center">
-                    {imageAsset ? (
-                      <img
-                        src={imageAsset.src}
-                        alt={data.title}
-                        class="h-full w-full object-cover"
-                      />
-                    ) : data.featuredImage ? (
+                    {data.featuredImage ? (
                       <img
                         src={data.featuredImage}
                         alt={data.title}

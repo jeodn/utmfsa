@@ -12,9 +12,10 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.2.0",
     "@iconify-json/heroicons": "^1.2.3",
     "@tailwindcss/vite": "^4.3.3",
-    "astro": "^7.1.6",
+    "astro": "^7.2.0",
     "astro-icon": "^1.1.5",
     "tailwindcss": "^4.3.3"
   },
