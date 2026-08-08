@@ -16,7 +16,7 @@ export const siteConfig = {
   navLinks: [
     { label: "About Us", href: "/about-us", title: "About Us | UTMFSA", header: true, footer: true },
     { label: "Membership Card", href: "/membership", title: "Membership Card | UTMFSA", header: true, footer: true },
-    { label: "Past Events", href: "/events", title: "Events | UTMFSA", header: true, footer: true },
+    { label: "Events", href: "/events", title: "Events | UTMFSA", header: true, footer: true },
     { label: "Why Join?", href: "/join", title: "Why Join? | UTMFSA", header: true, footer: true },
     { label: "Contact", href: "/contact-us", title: "Contact Us | UTMFSA", header: true, footer: true }
   ] as NavItem[],
