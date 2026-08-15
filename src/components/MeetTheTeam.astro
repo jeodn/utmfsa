@@ -74,52 +74,112 @@ const execs: TeamMember[] = [
     image: "/favicon.ico"
   }
 ];
+const ITEMS_PER_SLIDE = 6;
+const slides: TeamMember[][] = [];
+for (let i = 0; i < execs.length; i += ITEMS_PER_SLIDE) {
+  slides.push(execs.slice(i, i + ITEMS_PER_SLIDE));
+}
 ---
 
 <section class="py-16 bg-bg-subtle border-y border-border-subtle">
   <div class="container">
-    <!-- Section Header -->
-    <div class="text-center max-w-3xl mx-auto mb-12">
-      <span class="section-eyebrow">LEADERSHIP & EXEC BOARD</span>
-      <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-4">
-        Meet the UTMFSA Team
-      </h2>
-      <p class="text-text-muted text-base sm:text-lg">
-        Dedicated student leaders working to build an inclusive, vibrant Filipino community at UTM.
-      </p>
-    </div>
+    <!-- Section Header & Controls -->
+    <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-8">
+      <div class="text-left max-w-2xl">
+        <span class="section-eyebrow">LEADERSHIP & EXEC BOARD</span>
+        <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-2">
+          Meet the UTMFSA Team
+        </h2>
+        <p class="text-text-muted text-sm sm:text-base">
+          Dedicated student leaders working to build an inclusive, vibrant Filipino community at UTM.
+        </p>
+      </div>
 
-    <!-- Team Cards Grid (Large Executive Photo Tiles) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-      {execs.map((exec) => (
-        <div class="group overflow-hidden rounded-3xl border border-border-subtle bg-bg-card shadow-xs flex flex-col justify-between hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-          <!-- Large Image Section (Takes up most of tile) -->
-          <div class="aspect-4/3 sm:aspect-square w-full overflow-hidden bg-gradient-to-br from-primary-light via-bg-subtle to-secondary-light relative flex items-center justify-center p-6">
-            <img 
-              src={exec.image || "/favicon.ico"} 
-              alt={exec.name} 
-              class="h-32 w-32 sm:h-40 sm:w-40 object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" 
-            />
-            <!-- Overlay Badge -->
-            <span class="absolute top-4 left-4 px-3 py-1 bg-primary/95 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
-              {exec.role}
-            </span>
+      <!-- Carousel Controls (Previous, Next, Slide Dots) -->
+      {slides.length > 1 && (
+        <div class="flex items-center gap-4 shrink-0">
+          <div class="flex items-center gap-1.5" id="exec-dots-container">
+            {slides.map((_, idx) => (
+              <button
+                type="button"
+                data-slide-index={idx}
+                class:list={[
+                  "exec-dot-btn h-2 rounded-full transition-all duration-300 cursor-pointer",
+                  idx === 0 ? "w-6 bg-primary" : "w-2 bg-border-hover hover:bg-text-muted"
+                ]}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
           </div>
 
-          <!-- Content Section -->
-          <div class="p-6 flex-1 flex flex-col justify-between border-t border-border-subtle bg-bg-card">
-            <div>
-              <h3 class="font-headline font-bold text-xl text-text-main mb-1 leading-snug">
-                {exec.name}
-              </h3>
-              <p class="text-xs font-semibold text-primary mb-3">
-                {exec.yearProgram}
-              </p>
-              <p class="text-text-muted text-sm leading-relaxed mb-2">
+          <div class="flex items-center gap-2">
+            <button
+              id="exec-prev-btn"
+              type="button"
+              class="p-2 rounded-full border border-border-subtle bg-bg-card text-text-main hover:bg-primary-light hover:text-primary hover:border-primary/30 transition-all shadow-xs disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+              aria-label="Previous executive slide"
+            >
+              <Icon name="chevronLeft" size={18} />
+            </button>
+            <button
+              id="exec-next-btn"
+              type="button"
+              class="p-2 rounded-full border border-border-subtle bg-bg-card text-text-main hover:bg-primary-light hover:text-primary hover:border-primary/30 transition-all shadow-xs disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+              aria-label="Next executive slide"
+            >
+              <Icon name="chevronRight" size={18} />
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+
+    <!-- Scrollable & Snappable Carousel Track Container -->
+    <div 
+      id="exec-carousel-container" 
+      class="overflow-x-auto snap-x snap-mandatory flex gap-6 pb-4 mb-12 scrollbar-none scroll-smooth"
+    >
+      {slides.map((slideMembers, slideIdx) => (
+        <div 
+          class="min-w-full w-full shrink-0 snap-start grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 content-start auto-rows-max"
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`Slide ${slideIdx + 1} of ${slides.length}`}
+        >
+          {slideMembers.map((exec) => (
+            <div class="group relative flex flex-col justify-between p-5 rounded-2xl border border-border-subtle bg-bg-card shadow-2xs hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200">
+              <!-- Top Profile Info -->
+              <div class="flex items-start gap-4 mb-3">
+                <!-- Compact Avatar -->
+                <div class="h-14 w-14 sm:h-16 sm:w-16 rounded-xl bg-gradient-to-br from-primary-light via-bg-subtle to-secondary-light border border-border-subtle flex items-center justify-center p-2.5 shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
+                  <img 
+                    src={exec.image || "/favicon.ico"} 
+                    alt={exec.name} 
+                    class="h-full w-full object-contain drop-shadow-xs" 
+                    loading="lazy"
+                  />
+                </div>
+
+                <!-- Role, Name & Program -->
+                <div class="flex-1 min-w-0">
+                  <span class="inline-block text-[10px] sm:text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary-light text-primary mb-1 truncate max-w-full">
+                    {exec.role}
+                  </span>
+                  <h3 class="font-headline font-bold text-base sm:text-lg text-text-main leading-tight truncate">
+                    {exec.name}
+                  </h3>
+                  <p class="text-xs text-text-muted font-medium mt-0.5 truncate">
+                    {exec.yearProgram}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Bio Snippet -->
+              <p class="text-xs text-text-muted leading-relaxed line-clamp-2 pt-2 border-t border-border-subtle/60">
                 {exec.bio}
               </p>
             </div>
-          </div>
+          ))}
         </div>
       ))}
     </div>
@@ -149,3 +209,88 @@ const execs: TeamMember[] = [
     </div>
   </div>
 </section>
+
+<script>
+  function setupExecCarousel() {
+    const container = document.getElementById('exec-carousel-container');
+    const prevBtn = document.getElementById('exec-prev-btn');
+    const nextBtn = document.getElementById('exec-next-btn');
+    const dots = document.querySelectorAll<HTMLButtonElement>('.exec-dot-btn');
+
+    if (!container) return;
+
+    const totalSlides = dots.length || 1;
+
+    function getSlideIndex(): number {
+      const scrollLeft = container.scrollLeft;
+      const slideWidth = container.clientWidth;
+      if (slideWidth === 0) return 0;
+      return Math.round(scrollLeft / slideWidth);
+    }
+
+    function updateControls(index: number) {
+      if (prevBtn) {
+        (prevBtn as HTMLButtonElement).disabled = index <= 0;
+      }
+      if (nextBtn) {
+        (nextBtn as HTMLButtonElement).disabled = index >= totalSlides - 1;
+      }
+
+      dots.forEach((dot, idx) => {
+        if (idx === index) {
+          dot.classList.add('w-6', 'bg-primary');
+          dot.classList.remove('w-2', 'bg-border-hover');
+        } else {
+          dot.classList.remove('w-6', 'bg-primary');
+          dot.classList.add('w-2', 'bg-border-hover');
+        }
+      });
+    }
+
+    function scrollToSlide(index: number) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+
+      const targetX = index * (container.clientWidth + 24); // 24px gap
+      container.scrollTo({
+        left: targetX,
+        behavior: 'smooth'
+      });
+      updateControls(index);
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      const current = getSlideIndex();
+      scrollToSlide(current - 1);
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      const current = getSlideIndex();
+      scrollToSlide(current + 1);
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const target = parseInt(dot.dataset.slideIndex || '0', 10);
+        scrollToSlide(target);
+      });
+    });
+
+    // Sync on scroll (touch, trackpad, scrollbar)
+    let scrollTimeout: number;
+    container.addEventListener('scroll', () => {
+      clearTimeout(scrollTimeout);
+      scrollTimeout = window.setTimeout(() => {
+        const current = getSlideIndex();
+        updateControls(current);
+      }, 50);
+    }, { passive: true });
+
+    updateControls(0);
+  }
+
+  setupExecCarousel();
+  document.addEventListener('astro:page-load', setupExecCarousel);
+</script>
+
+

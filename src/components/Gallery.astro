@@ -1,5 +1,7 @@
 ---
 import { Image } from "astro:assets";
+import Icon from "./Icon.astro";
+import { siteConfig } from "../config/site.config";
 
 // Import image assets dynamically from src/assets/ for Option B (zero 404s + WebP optimization)
 const imageAssets = import.meta.glob<{ default: ImageMetadata }>(
@@ -18,11 +20,13 @@ interface Props {
   title?: string;
   subtitle?: string;
   items?: GalleryItem[];
+  fullGalleryHref?: string;
 }
 
 const {
   title = "FSA Moments & Memories",
   subtitle = "A glimpse into our community events, cultural performances, and flagship gatherings.",
+  fullGalleryHref = "/events",
   items = [
     {
       imageFileName: "images/gala.jpg",
@@ -106,6 +110,17 @@ const {
           </div>
         );
       })}
+    </div>
+
+    <!-- Bottom Corner Action Link -->
+    <div class="mt-8 flex justify-end">
+      <a 
+        href={fullGalleryHref} 
+        class="group inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary-hover bg-primary-light/70 hover:bg-primary-light px-5 py-2.5 rounded-full border border-primary/20 shadow-xs transition-all duration-200 hover:shadow-md unstyle-link"
+      >
+        <span>View Full Gallery</span>
+        <Icon name="arrowRight" size={16} class="transition-transform duration-200 group-hover:translate-x-1" />
+      </a>
     </div>
   </div>
 </section>
