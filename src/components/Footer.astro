@@ -8,12 +8,12 @@ import { siteConfig, footerNavLinks } from "../config/site.config";
       <img src="/favicon.ico" alt="UTMFSA Logo" class="h-8 w-8 object-contain rounded-md" />
       <div>
         <span class="font-headline font-bold font-sans text-white text-lg tracking-tight block">{siteConfig.shortName}</span>
-        <span class="text-xs text-slate-400">© 2026 {siteConfig.name}</span>
+        <span class="text-xs text-white/60">© 2026 {siteConfig.name}</span>
       </div>
     </div>
 
     <!-- Quick Footer Links -->
-    <div class="flex flex-wrap justify-center items-center gap-6 text-sm text-slate-300 font-medium">
+    <div class="flex flex-wrap justify-center items-center gap-6 text-sm text-white/80 font-medium">
       {footerNavLinks.map((link) => (
         <a href={link.href} class="unstyle-link hover:text-white transition-colors">{link.label}</a>
       ))}

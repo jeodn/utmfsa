@@ -1,67 +1,316 @@
 ---
 import { siteConfig, headerNavLinks } from "../config/site.config";
+import Icon from "./Icon.astro";
 
 interface Props {
   transparent?: boolean;
 }
 
 const { transparent = false } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 ---
 
 <header
   id="site-header"
   class:list={[
     "top-0 z-50 w-full transition-all duration-300",
-    transparent 
-      ? "fixed header-transparent text-white border-b-0 border-transparent bg-gradient-to-b from-text-main/80 via-text-main/40 to-transparent" 
-      : "sticky bg-bg-main/95 backdrop-blur-md text-text-main border-b border-border-subtle shadow-xs"
+    transparent
+      ? "fixed header-transparent text-white border-b-0 border-transparent bg-gradient-to-b from-text-main/80 via-text-main/40 to-transparent"
+      : "sticky bg-bg-main/95 backdrop-blur-md text-text-main border-b border-border-subtle shadow-xs",
   ]}
   data-transparent={transparent ? "true" : "false"}
 >
   <div class="container flex h-16 items-center justify-between">
     <!-- Brand Logo -->
-    <a href="/" class="flex items-center gap-3 no-underline text-current hover:opacity-90 transition-opacity">
-      <img src="/favicon.ico" alt="UTMFSA Logo" class="h-8 w-8 object-contain rounded-md" />
-      <span class="font-headline font-bold font-sans text-xl tracking-tight">{siteConfig.shortName}</span>
+    <a
+      href="/"
+      class="flex items-center gap-3 no-underline text-inherit hover:opacity-90 transition-opacity"
+    >
+      <img
+        src="/favicon.ico"
+        alt="UTMFSA Logo"
+        class="h-8 w-8 object-contain rounded-md"
+      />
+      <span class="font-headline font-bold font-sans text-xl tracking-tight"
+        >{siteConfig.shortName}</span
+      >
     </a>
 
-    <!-- Nav Links -->
+    <!-- Desktop Nav Links -->
     <nav class="hidden md:flex items-center gap-7 text-sm font-semibold">
-      {headerNavLinks.map((link) => (
-        <a href={link.href} class="unstyle-link hover:text-primary transition-colors">{link.label}</a>
-      ))}
+      {
+        headerNavLinks.map((link) => {
+          const linkPath = link.href.replace(/\/$/, "") || "/";
+          const isActive =
+            linkPath === "/"
+              ? currentPath === "/"
+              : currentPath.startsWith(linkPath);
+
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                "relative py-1 unstyle-link transition-colors duration-200",
+                isActive
+                  ? "text-primary font-bold active-nav-link"
+                  : "hover:text-primary",
+              ]}
+              aria-current={isActive ? "page" : undefined}
+            >
+              <span>{link.label}</span>
+              {isActive && (
+                <span class="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full animate-fade-in" />
+              )}
+            </a>
+          );
+        })
+      }
     </nav>
 
-    <!-- Right Join Button -->
+    <!-- Right Join Button & Mobile Hamburger -->
     <div class="flex items-center gap-3">
-      <a href="/join" class="btn-primary text-xs px-5 py-2 shadow-sm">
+      <a
+        href="/join"
+        class="btn-primary text-xs px-5 py-2 shadow-sm hidden sm:inline-flex"
+      >
         <span>Join Club</span>
       </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button
+        id="mobile-menu-toggle"
+        type="button"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-drawer"
+        class="md:hidden p-2 rounded-lg text-inherit hover:bg-bg-subtle/20 focus:outline-hidden focus:ring-2 focus:ring-primary cursor-pointer transition-colors"
+      >
+        <Icon name="menu" size={24} class="hamburger-icon block" />
+      </button>
     </div>
   </div>
 </header>
 
+<!-- Mobile Side Nav Drawer -->
+<div id="mobile-drawer-root" class="md:hidden relative z-50">
+  <!-- Overlay Backdrop -->
+  <div
+    id="mobile-drawer-backdrop"
+    class="fixed inset-0 bg-black/60 backdrop-blur-xs opacity-0 pointer-events-none transition-opacity duration-300 ease-in-out"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Slide-over Panel -->
+  <aside
+    id="mobile-drawer-panel"
+    class="fixed top-0 right-0 bottom-0 w-[82vw] max-w-sm bg-bg-card border-l border-border-subtle shadow-2xl translate-x-full transition-transform duration-300 ease-in-out flex flex-col justify-between p-6 z-50"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Mobile Navigation"
+  >
+    <div>
+      <!-- Drawer Header -->
+      <div
+        class="flex items-center justify-between pb-6 border-b border-border-subtle"
+      >
+        <a
+          href="/"
+          class="flex items-center gap-3 no-underline text-text-main mobile-nav-close-trigger"
+        >
+          <img
+            src="/favicon.ico"
+            alt="UTMFSA Logo"
+            class="h-8 w-8 object-contain rounded-md"
+          />
+          <span class="font-headline font-bold text-lg tracking-tight"
+            >{siteConfig.shortName}</span
+          >
+        </a>
+        <button
+          id="mobile-drawer-close"
+          type="button"
+          aria-label="Close navigation menu"
+          class="p-2 rounded-lg text-text-muted hover:text-text-main hover:bg-bg-subtle cursor-pointer transition-colors"
+        >
+          <Icon name="x" size={22} />
+        </button>
+      </div>
+
+      <!-- Drawer Nav Links -->
+      <nav class="mt-6 flex flex-col gap-1">
+        {
+          headerNavLinks.map((link) => {
+            const linkPath = link.href.replace(/\/$/, "") || "/";
+            const isActive =
+              linkPath === "/"
+                ? currentPath === "/"
+                : currentPath.startsWith(linkPath);
+
+            return (
+              <a
+                href={link.href}
+                class:list={[
+                  "mobile-nav-close-trigger flex items-center justify-between px-4 py-3 rounded-xl text-base font-semibold transition-all duration-200 unstyle-link",
+                  isActive
+                    ? "bg-primary-light text-primary font-bold shadow-xs"
+                    : "text-text-main hover:bg-bg-subtle hover:text-primary",
+                ]}
+                aria-current={isActive ? "page" : undefined}
+              >
+                <span>{link.label}</span>
+                {isActive ? (
+                  <span class="h-2 w-2 rounded-full bg-primary" />
+                ) : (
+                  <Icon
+                    name="chevronRight"
+                    size={16}
+                    class="text-text-muted opacity-60"
+                  />
+                )}
+              </a>
+            );
+          })
+        }
+      </nav>
+    </div>
+
+    <!-- Drawer Footer Actions & Socials -->
+    <div class="pt-6 border-t border-border-subtle flex flex-col gap-4">
+      <div
+        class="flex items-center justify-center gap-4 text-text-muted text-xs pt-2"
+      >
+        <a
+          href={siteConfig.contact.instagramUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-lg hover:text-primary hover:bg-bg-subtle transition-colors"
+          aria-label="UTMFSA Instagram"
+        >
+          <Icon name="instagram" size={18} />
+        </a>
+        <a
+          href={siteConfig.contact.discordUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 rounded-lg hover:text-primary hover:bg-bg-subtle transition-colors"
+          aria-label="UTMFSA Discord"
+        >
+          <Icon name="users" size={18} />
+        </a>
+        <a
+          href={`mailto:${siteConfig.contact.studentEmail}`}
+          class="p-2 rounded-lg hover:text-primary hover:bg-bg-subtle transition-colors"
+          aria-label="Email UTMFSA"
+        >
+          <Icon name="mail" size={18} />
+        </a>
+      </div>
+    </div>
+  </aside>
+</div>
 
 <script>
-  function setupHeaderScroll() {
-    const header = document.getElementById('site-header');
-    if (!header || header.dataset.transparent !== 'true') return;
+  function setupNavigation() {
+    const header = document.getElementById("site-header");
+    const toggleBtn = document.getElementById("mobile-menu-toggle");
+    const closeBtn = document.getElementById("mobile-drawer-close");
+    const backdrop = document.getElementById("mobile-drawer-backdrop");
+    const panel = document.getElementById("mobile-drawer-panel");
+    const closeTriggers = document.querySelectorAll(
+      ".mobile-nav-close-trigger",
+    );
 
-    const handleScroll = () => {
-      if (window.scrollY > 40) {
-        header.classList.remove('text-white', 'border-b-0', 'border-transparent', 'bg-gradient-to-b', 'from-text-main/80', 'via-text-main/40', 'to-transparent');
-        header.classList.add('bg-bg-main/95', 'backdrop-blur-md', 'text-text-main', 'border-b', 'border-border-subtle', 'shadow-xs');
+    let isOpen = false;
+
+    function openDrawer() {
+      isOpen = true;
+      toggleBtn?.setAttribute("aria-expanded", "true");
+      backdrop?.classList.remove("opacity-0", "pointer-events-none");
+      backdrop?.classList.add("opacity-100");
+      panel?.classList.remove("translate-x-full");
+      panel?.classList.add("translate-x-0");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeDrawer() {
+      isOpen = false;
+      toggleBtn?.setAttribute("aria-expanded", "false");
+      backdrop?.classList.remove("opacity-100");
+      backdrop?.classList.add("opacity-0", "pointer-events-none");
+      panel?.classList.remove("translate-x-0");
+      panel?.classList.add("translate-x-full");
+      document.body.style.overflow = "";
+    }
+
+    toggleBtn?.addEventListener("click", () => {
+      if (isOpen) {
+        closeDrawer();
       } else {
-        header.classList.add('text-white', 'border-b-0', 'border-transparent', 'bg-gradient-to-b', 'from-text-main/80', 'via-text-main/40', 'to-transparent');
-        header.classList.remove('bg-bg-main/95', 'backdrop-blur-md', 'text-text-main', 'border-b', 'border-border-subtle', 'shadow-xs');
+        openDrawer();
       }
-    };
+    });
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    closeBtn?.addEventListener("click", closeDrawer);
+    backdrop?.addEventListener("click", closeDrawer);
+    closeTriggers.forEach((trigger) =>
+      trigger.addEventListener("click", closeDrawer),
+    );
+
+    // Close on Escape key
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && isOpen) {
+        closeDrawer();
+      }
+    });
+
+    // Transparent header scroll effect
+    if (header && header.dataset.transparent === "true") {
+      const handleScroll = () => {
+        if (window.scrollY > 40) {
+          header.classList.remove(
+            "text-white",
+            "border-b-0",
+            "border-transparent",
+            "bg-gradient-to-b",
+            "from-text-main/80",
+            "via-text-main/40",
+            "to-transparent",
+          );
+          header.classList.add(
+            "bg-bg-main/95",
+            "backdrop-blur-md",
+            "text-text-main",
+            "border-b",
+            "border-border-subtle",
+            "shadow-xs",
+          );
+        } else {
+          header.classList.add(
+            "text-white",
+            "border-b-0",
+            "border-transparent",
+            "bg-gradient-to-b",
+            "from-text-main/80",
+            "via-text-main/40",
+            "to-transparent",
+          );
+          header.classList.remove(
+            "bg-bg-main/95",
+            "backdrop-blur-md",
+            "text-text-main",
+            "border-b",
+            "border-border-subtle",
+            "shadow-xs",
+          );
+        }
+      };
+
+      window.addEventListener("scroll", handleScroll, { passive: true });
+      handleScroll();
+    }
   }
 
-  setupHeaderScroll();
-  document.addEventListener('astro:page-load', setupHeaderScroll);
+  setupNavigation();
+  document.addEventListener("astro:page-load", setupNavigation);
 </script>
-
