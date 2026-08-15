@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
 import { getCollection, render } from "astro:content";
 
 let eventPostsWithContent: any[] = [];
@@ -19,81 +20,395 @@ try {
 } catch (error) {
   console.warn("Error loading 'events' content collection:", error);
 }
+
+// Separate into Upcoming and Past events
+const upcomingEvents = eventPostsWithContent.filter((e) => e.data.isUpcoming === true);
+const pastEvents = eventPostsWithContent.filter((e) => e.data.isUpcoming !== true);
+
+// Count categories for filter badges
+const categoryCounts: Record<string, number> = {
+  all: eventPostsWithContent.length,
+  upcoming: upcomingEvents.length,
+  past: pastEvents.length,
+  cultural: eventPostsWithContent.filter((e) => (e.data.category || '').toLowerCase() === 'cultural' || (e.data.tag || '').toLowerCase().includes('cultural')).length,
+  social: eventPostsWithContent.filter((e) => (e.data.category || '').toLowerCase() === 'social' || (e.data.tag || '').toLowerCase().includes('social')).length,
+  professional: eventPostsWithContent.filter((e) => (e.data.category || '').toLowerCase() === 'professional' || (e.data.tag || '').toLowerCase().includes('professional') || (e.data.tag || '').toLowerCase().includes('career')).length,
+  formal: eventPostsWithContent.filter((e) => (e.data.category || '').toLowerCase() === 'formal' || (e.data.tag || '').toLowerCase().includes('gala') || (e.data.tag || '').toLowerCase().includes('formal')).length,
+};
+
+const filterTabs = [
+  { id: "all", label: "All Events", count: categoryCounts.all },
+  { id: "upcoming", label: "Upcoming", count: categoryCounts.upcoming },
+  { id: "cultural", label: "Cultural", count: categoryCounts.cultural },
+  { id: "social", label: "Social", count: categoryCounts.social },
+  { id: "professional", label: "Professional", count: categoryCounts.professional },
+  { id: "formal", label: "Formal Gala", count: categoryCounts.formal },
+  { id: "past", label: "Past Recaps", count: categoryCounts.past },
+];
 ---
 
-<Layout title="UTMFSA | Events & Recaps" description="Catch up on UTMFSA events, cultural showcases, welcome socials, and annual galas at UTM.">
+<Layout title="UTMFSA | Events & Stories" description="Explore upcoming events, cultural showcases, socials, and annual galas organized by the UTM Filipino Students' Association.">
   <!-- Page Header -->
   <section class="py-16 sm:py-20 bg-bg-subtle border-b border-border-subtle text-center">
     <div class="container max-w-4xl">
       <span class="section-eyebrow">UTMFSA EVENTS & RECAPS</span>
       <h1 class="text-4xl sm:text-6xl font-headline font-bold text-text-main tracking-tight mb-4">
-        Events & Stories
+        Events & Experiences
       </h1>
       <p class="text-text-muted text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
-        Explore recaps, photo highlights, and upcoming gatherings organized by the UTM Filipino Students' Association.
+        Discover upcoming campus gatherings, flagship galas, cultural showcases, and recaps from the UTM Filipino Students' Association.
       </p>
     </div>
   </section>
 
-  <!-- Blog-Style Event Recaps Grid -->
-  <section class="py-16 bg-bg-main">
+  <!-- Filter Navigation Bar -->
+  <section class="sticky top-16 z-30 bg-bg-main/90 backdrop-blur-md border-b border-border-subtle py-4 shadow-2xs">
     <div class="container">
-      {eventPostsWithContent && eventPostsWithContent.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {eventPostsWithContent.map((event) => {
-            const { Content, data } = event;
-
-            return (
-              <article class="rounded-2xl border border-border-subtle bg-bg-card overflow-hidden shadow-xs flex flex-col justify-between hover:shadow-md transition-shadow">
-                <div>
-                  <!-- Featured Image -->
-                  <div class="aspect-16/9 w-full overflow-hidden bg-bg-subtle relative border-b border-border-subtle flex items-center justify-center">
-                    {data.featuredImage ? (
-                      <img
-                        src={data.featuredImage}
-                        alt={data.title}
-                        class="h-full w-full object-cover"
-                      />
-                    ) : (
-                      <div class="h-full w-full bg-primary-light flex items-center justify-center text-primary font-bold text-sm p-4 text-center">
-                        {data.title}
-                      </div>
-                    )}
-                    <span class="absolute top-3 left-3 px-3 py-1 bg-primary text-text-inverse text-xs font-bold rounded-full shadow-sm">
-                      {data.tag}
-                    </span>
-                  </div>
-
-                  <!-- Event Details -->
-                  <div class="p-6">
-                    <div class="flex items-center gap-3 text-xs text-text-muted mb-2 font-medium">
-                      <span>{data.date}</span>
-                      <span>•</span>
-                      <span>{data.location}</span>
-                    </div>
-
-                    <h2 class="text-xl font-headline font-bold text-text-main mb-3 leading-snug">
-                      {data.title}
-                    </h2>
-
-                    <p class="text-text-muted text-sm leading-relaxed mb-4">
-                      {data.summary}
-                    </p>
-
-                    <div class="prose prose-sm text-text-muted text-xs border-t border-border-subtle pt-3">
-                      <Content />
-                    </div>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+      <div class="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0 scrollbar-none" id="event-filter-bar">
+        <div class="flex items-center gap-2 shrink-0 pr-2 border-r border-border-subtle text-xs font-bold text-text-muted">
+          <Icon name="filter" size={16} class="text-primary" />
+          <span class="hidden sm:inline">Filter:</span>
         </div>
-      ) : (
-        <div class="text-center py-12 text-text-muted text-sm">
-          No events found.
-        </div>
-      )}
+
+        {filterTabs.map((tab) => (
+          <button
+            type="button"
+            data-filter={tab.id}
+            class:list={[
+              "event-filter-btn inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap",
+              tab.id === "all"
+                ? "bg-primary text-text-inverse shadow-xs active-filter"
+                : "bg-bg-subtle text-text-muted hover:text-text-main hover:bg-border-subtle/60 border border-border-subtle"
+            ]}
+          >
+            <span>{tab.label}</span>
+            <span class="filter-count-badge text-[10px] px-1.5 py-0.5 rounded-full bg-white/20 text-current">
+              {tab.count}
+            </span>
+          </button>
+        ))}
+      </div>
     </div>
   </section>
+
+  <!-- Main Events Content Area -->
+  <div class="py-16 bg-bg-main min-h-[50vh]">
+    <div class="container">
+      
+      <!-- Section 1: Upcoming Events -->
+      <div id="section-upcoming" class="event-section mb-16">
+        <div class="flex items-center justify-between gap-4 mb-8 pb-4 border-b border-border-subtle">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-headline font-bold text-text-main tracking-tight">
+              Upcoming Events
+            </h2>
+          </div>
+        </div>
+
+        {upcomingEvents.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {upcomingEvents.map((event) => {
+              const { Content, data } = event;
+              const cat = (data.category || 'cultural').toLowerCase();
+
+              return (
+                <article 
+                  class="event-card group flex flex-col justify-between rounded-3xl border border-border-subtle bg-bg-card shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                  data-category={cat}
+                  data-status="upcoming"
+                  data-tag={data.tag.toLowerCase()}
+                >
+                  <div>
+                    <!-- Image / Header Banner -->
+                    <div class="aspect-16/9 w-full overflow-hidden bg-bg-subtle relative border-b border-border-subtle">
+                      {data.featuredImage ? (
+                        <img
+                          src={data.featuredImage}
+                          alt={data.title}
+                          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div class="h-full w-full bg-gradient-to-br from-primary-light via-bg-subtle to-secondary-light flex items-center justify-center p-4">
+                          <Icon name="sparkles" size={32} class="text-primary/40" />
+                        </div>
+                      )}
+                      
+                      <!-- Top Badges -->
+                      <div class="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none">
+                        <span class="px-3 py-1 bg-primary/95 backdrop-blur-md text-text-inverse text-xs font-bold uppercase tracking-wider rounded-full shadow-sm">
+                          {data.tag}
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary/95 backdrop-blur-md text-text-inverse text-xs font-bold rounded-full shadow-sm">
+                          <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+                          <span>Upcoming</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Event Details -->
+                    <div class="p-6">
+                      <!-- Meta Details -->
+                      <div class="flex flex-col gap-2 mb-4 text-xs text-text-muted">
+                        <div class="flex items-center gap-2 font-semibold text-primary">
+                          <Icon name="calendar" size={15} />
+                          <span>{data.date}</span>
+                          {data.time && (
+                            <>
+                              <span>•</span>
+                              <div class="flex items-center gap-1">
+                                <Icon name="clock" size={13} />
+                                <span>{data.time}</span>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <Icon name="mapPin" size={15} class="text-text-muted opacity-80" />
+                          <span>{data.location}</span>
+                        </div>
+                      </div>
+
+                      <h3 class="text-xl font-headline font-bold text-text-main group-hover:text-primary transition-colors mb-3 leading-snug">
+                        {data.title}
+                      </h3>
+
+                      <p class="text-text-muted text-sm leading-relaxed mb-4">
+                        {data.summary}
+                      </p>
+
+                      <div class="prose prose-sm text-text-muted text-xs border-t border-border-subtle pt-3">
+                        <Content />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Card Footer Action -->
+                  <div class="p-6 pt-0">
+                    <a
+                      href={data.rsvpUrl || "https://instagram.com/utmfsa"}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-primary w-full justify-center text-xs py-2.5 shadow-sm unstyle-link"
+                    >
+                      <span class="text-text-inverse">RSVP & Details</span>
+                      <Icon name="arrowRight" size={15} class="text-text-inverse" />
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="text-center py-12 text-text-muted text-sm bg-bg-subtle rounded-2xl border border-border-subtle">
+            Stay tuned! Upcoming event dates will be announced shortly.
+          </div>
+        )}
+      </div>
+
+      <!-- Section 2: Past Events & Stories -->
+      <div id="section-past" class="event-section">
+        <div class="flex items-center justify-between gap-4 mb-8 pb-4 border-b border-border-subtle">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-headline font-bold text-text-main tracking-tight">
+              Past Events & Recaps
+            </h2>
+          </div>
+        </div>
+
+        {pastEvents.length > 0 ? (
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {pastEvents.map((event) => {
+              const { Content, data } = event;
+              const cat = (data.category || 'cultural').toLowerCase();
+
+              return (
+                <article 
+                  class="event-card group flex flex-col justify-between rounded-3xl border border-border-subtle bg-bg-card shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+                  data-category={cat}
+                  data-status="past"
+                  data-tag={data.tag.toLowerCase()}
+                >
+                  <div>
+                    <!-- Image / Header Banner -->
+                    <div class="aspect-16/9 w-full overflow-hidden bg-bg-subtle relative border-b border-border-subtle">
+                      {data.featuredImage ? (
+                        <img
+                          src={data.featuredImage}
+                          alt={data.title}
+                          class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div class="h-full w-full bg-primary-light flex items-center justify-center p-4">
+                          <Icon name="sparkles" size={32} class="text-primary/40" />
+                        </div>
+                      )}
+                      
+                      <!-- Top Badge -->
+                      <div class="absolute top-3 left-3 flex items-center gap-2 pointer-events-none">
+                        <span class="px-3 py-1 bg-bg-card/90 backdrop-blur-md text-text-main text-xs font-bold uppercase tracking-wider rounded-full shadow-xs border border-border-subtle">
+                          {data.tag}
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Event Details -->
+                    <div class="p-6">
+                      <!-- Meta Details -->
+                      <div class="flex flex-col gap-2 mb-4 text-xs text-text-muted">
+                        <div class="flex items-center gap-2 font-medium">
+                          <Icon name="calendar" size={15} class="text-text-muted" />
+                          <span>{data.date}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <Icon name="mapPin" size={15} class="text-text-muted opacity-80" />
+                          <span>{data.location}</span>
+                        </div>
+                      </div>
+
+                      <h3 class="text-xl font-headline font-bold text-text-main group-hover:text-primary transition-colors mb-3 leading-snug">
+                        {data.title}
+                      </h3>
+
+                      <p class="text-text-muted text-sm leading-relaxed mb-4">
+                        {data.summary}
+                      </p>
+
+                      <div class="prose prose-sm text-text-muted text-xs border-t border-border-subtle pt-3">
+                        <Content />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Card Footer Action -->
+                  <div class="p-6 pt-0">
+                    <a
+                      href="https://instagram.com/utmfsa"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="btn-subtle w-full justify-center text-xs py-2.5 unstyle-link"
+                    >
+                      <span>View Photos on Instagram</span>
+                      <Icon name="externalLink" size={14} />
+                    </a>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="text-center py-12 text-text-muted text-sm bg-bg-subtle rounded-2xl border border-border-subtle">
+            No past event archives found.
+          </div>
+        )}
+      </div>
+
+      <!-- Empty State for Filters -->
+      <div id="no-matching-events" class="hidden text-center py-16 bg-bg-subtle rounded-3xl border border-border-subtle my-8">
+        <Icon name="calendar" size={36} class="text-text-muted mx-auto mb-3 opacity-60" />
+        <h3 class="text-xl font-headline font-bold text-text-main mb-2">No events found</h3>
+        <p class="text-text-muted text-sm max-w-md mx-auto mb-6">
+          There are no events currently matching this category filter. Try choosing another category above.
+        </p>
+        <button 
+          id="reset-filter-btn" 
+          type="button" 
+          class="btn-primary text-xs px-6 py-2.5 inline-flex items-center gap-2 cursor-pointer"
+        >
+          <span>Show All Events</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
 </Layout>
+
+<script>
+  function setupEventFilters() {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.event-filter-btn');
+    const cards = document.querySelectorAll<HTMLElement>('.event-card');
+    const upcomingSection = document.getElementById('section-upcoming');
+    const pastSection = document.getElementById('section-past');
+    const emptyState = document.getElementById('no-matching-events');
+    const resetBtn = document.getElementById('reset-filter-btn');
+
+    if (!filterButtons.length) return;
+
+    function applyFilter(filterId: string) {
+      // Update button active styling
+      filterButtons.forEach((btn) => {
+        if (btn.dataset.filter === filterId) {
+          btn.classList.add('bg-primary', 'text-text-inverse', 'shadow-xs', 'active-filter');
+          btn.classList.remove('bg-bg-subtle', 'text-text-muted', 'border', 'border-border-subtle');
+        } else {
+          btn.classList.remove('bg-primary', 'text-text-inverse', 'shadow-xs', 'active-filter');
+          btn.classList.add('bg-bg-subtle', 'text-text-muted', 'border', 'border-border-subtle');
+        }
+      });
+
+      let visibleUpcoming = 0;
+      let visiblePast = 0;
+
+      cards.forEach((card) => {
+        const category = card.dataset.category || '';
+        const status = card.dataset.status || '';
+        const tag = card.dataset.tag || '';
+
+        let match = false;
+
+        if (filterId === 'all') {
+          match = true;
+        } else if (filterId === 'upcoming') {
+          match = status === 'upcoming';
+        } else if (filterId === 'past') {
+          match = status === 'past';
+        } else if (filterId === 'cultural') {
+          match = category === 'cultural' || tag.includes('cultural');
+        } else if (filterId === 'social') {
+          match = category === 'social' || tag.includes('social');
+        } else if (filterId === 'professional') {
+          match = category === 'professional' || tag.includes('professional') || tag.includes('career');
+        } else if (filterId === 'formal') {
+          match = category === 'formal' || tag.includes('formal') || tag.includes('gala');
+        }
+
+        if (match) {
+          card.style.display = 'flex';
+          if (status === 'upcoming') visibleUpcoming++;
+          if (status === 'past') visiblePast++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Show or hide section containers based on whether they have visible cards
+      if (upcomingSection) {
+        upcomingSection.style.display = visibleUpcoming > 0 ? 'block' : 'none';
+      }
+      if (pastSection) {
+        pastSection.style.display = visiblePast > 0 ? 'block' : 'none';
+      }
+
+      // Show empty state if zero total cards
+      if (emptyState) {
+        emptyState.style.display = (visibleUpcoming === 0 && visiblePast === 0) ? 'block' : 'none';
+      }
+    }
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter || 'all';
+        applyFilter(filter);
+      });
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      applyFilter('all');
+    });
+  }
+
+  setupEventFilters();
+  document.addEventListener('astro:page-load', setupEventFilters);
+</script>
+

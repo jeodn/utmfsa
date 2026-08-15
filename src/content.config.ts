@@ -6,8 +6,12 @@ const events = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.string(),
+    time: z.string().optional(),
     location: z.string(),
     tag: z.string(),
+    category: z.string().optional().default('cultural'),
+    isUpcoming: z.boolean().optional().default(false),
+    rsvpUrl: z.string().optional(),
     summary: z.string(),
     featuredImage: z.string().optional(),
     gallery: z.array(z.string()).optional(),

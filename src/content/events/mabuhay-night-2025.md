@@ -1,8 +1,12 @@
 ---
 title: "FAYCE 2026: Cultural Showcase"
 date: "March 15, 2026"
-location: "UTM Student Centre"
+time: "5:30 PM - 9:30 PM"
+location: "UTM Student Centre Presentation Hall"
 tag: "Cultural Showcase"
+category: "cultural"
+isUpcoming: true
+rsvpUrl: "https://instagram.com/utmfsa"
 summary: "Our biggest annual cultural showcase celebrating traditional Filipino dance, musical performances, delicious food, and community heritage."
 featuredImage: "/images/feeding.jpg"
 ---

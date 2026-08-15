@@ -1,8 +1,11 @@
 ---
 title: "Welcome Back Kamustahan Social"
 date: "September 20, 2024"
+time: "4:00 PM - 7:00 PM"
 location: "MN Quad, UTM Campus"
 tag: "Social Event"
+category: "social"
+isUpcoming: false
 summary: "Kicking off the new academic year with custom halo-halo, icebreaker games, and meeting fellow FSA members."
 featuredImage: "/images/philippinesweb.jpg"
 ---
