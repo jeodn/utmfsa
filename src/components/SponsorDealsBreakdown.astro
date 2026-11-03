@@ -97,59 +97,37 @@ const sponsors: SponsorItem[] = [
         Sponsors & Benefits
       </h2>
       <p class="text-text-muted text-base sm:text-lg">
-        Just show your UTMFSA membership card at participating Mississauga locations to instantly redeem discounts!
+        Exclusive member perks and business discounts are coming soon!
       </p>
     </div>
 
-    <!-- Sponsor Deals Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-      {sponsors.map((sponsor) => {
-        const imageKey = sponsor.imageFileName ? `/src/assets/sponsors/${sponsor.imageFileName}` : undefined;
-        const imageAsset = imageKey ? sponsorImages[imageKey]?.default : undefined;
+    <!-- Coming Soon State -->
+    <div class="max-w-3xl mx-auto rounded-3xl border border-border-subtle bg-bg-card p-10 sm:p-14 text-center shadow-xs mb-16 relative overflow-hidden">
+      <div class="relative z-10 flex flex-col items-center">
+        <div class="h-16 w-16 rounded-2xl bg-primary-light text-primary flex items-center justify-center mb-6 shadow-2xs">
+          <Icon name="sparkles" size={32} />
+        </div>
+        
+        <span class="inline-block px-3.5 py-1 rounded-full bg-secondary-light text-secondary text-xs font-bold tracking-wider uppercase mb-4 border border-secondary/20">
+          Coming Soon
+        </span>
+        
+        <h3 class="text-2xl sm:text-3xl font-headline font-bold text-text-main mb-3">
+          2026–2027 Partner Deals & Perks
+        </h3>
+        
+        <p class="text-text-muted text-base sm:text-lg max-w-xl leading-relaxed mb-8">
+          We are currently partnering with local Mississauga restaurants, cafes, boba shops, and entertainment spots. Stay tuned for the full announcement of exclusive member discounts!
+        </p>
 
-        return (
-          <div class="rounded-2xl border border-border-subtle bg-bg-card p-6 shadow-xs flex flex-col justify-between hover:shadow-md transition-all hover:-translate-y-0.5">
-            <div>
-              <!-- Header Row -->
-              <div class="flex items-center justify-between gap-4 mb-4 pb-4 border-b border-border-subtle">
-                <div class="flex items-center gap-3">
-                  {imageAsset ? (
-                    <img src={imageAsset.src} alt={sponsor.name} class="h-10 w-auto max-w-[120px] object-contain" />
-                  ) : (
-                    <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-light text-primary font-bold">
-                      <Icon name={sponsor.icon} size={20} />
-                    </span>
-                  )}
-                </div>
-                <span class="px-3 py-1 bg-secondary-light text-secondary font-bold text-xs rounded-full border border-secondary/20">
-                  {sponsor.discount}
-                </span>
-              </div>
-
-              <!-- Content -->
-              <h3 class="font-headline font-bold text-lg text-text-main mb-1">
-                {sponsor.name}
-              </h3>
-              <span class="inline-block text-xs font-semibold text-text-muted mb-3">
-                {sponsor.category} • {sponsor.location}
-              </span>
-              <p class="text-text-muted text-sm leading-relaxed mb-4">
-                {sponsor.description}
-              </p>
-
-              <!-- List of Perks -->
-              <div class="space-y-1.5 mb-4">
-                {sponsor.perks.map((perk) => (
-                  <div class="flex items-center gap-2 text-xs font-medium text-text-main">
-                    <span class="w-1.5 h-1.5 rounded-full bg-primary shrink-0"></span>
-                    <span>{perk}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        );
-      })}
+        <a 
+          href="/join" 
+          class="btn-primary text-sm px-7 py-3 shadow-md"
+        >
+          <span>Get Your Member's Card</span>
+          <Icon name="arrowRight" size={16} />
+        </a>
+      </div>
     </div>
 
     <!-- Sponsor Outreach Callout Box: "Want to get in touch with us?" -->

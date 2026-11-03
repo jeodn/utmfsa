@@ -1,12 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import AboutSection from "../components/AboutSection.astro";
-import Gallery from "../components/Gallery.astro";
 import MeetTheTeam from "../components/MeetTheTeam.astro";
-import HistoryTimeline from "../components/HistoryTimeline.astro";
 ---
 
-<Layout title="UTMFSA | About Us" description="Learn about the UTM Filipino Students' Association — our mission, team, gallery, and history at UTM.">
+<Layout title="UTMFSA | About Us" description="Learn about the UTM Filipino Students' Association — our mission and team at UTM.">
   <!-- Page Banner Header -->
   <section class="py-16 sm:py-20 bg-bg-subtle border-b border-border-subtle text-center">
     <div class="container max-w-4xl">
@@ -23,12 +21,7 @@ import HistoryTimeline from "../components/HistoryTimeline.astro";
   <!-- Editorial About Section -->
   <AboutSection />
 
-  <!-- Reusable Photo Gallery -->
-  <Gallery />
-
   <!-- Meet the Team (with Why Join FSA CTA link) -->
   <MeetTheTeam />
-
-  <!-- History & Traditions Timeline -->
-  <HistoryTimeline />
 </Layout>
+
