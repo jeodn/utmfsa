@@ -1,6 +1,11 @@
 ---
 import Icon from "./Icon.astro";
 
+const execImages = import.meta.glob<{ default: ImageMetadata }>(
+  "/src/assets/**/*.{jpeg,jpg,png,gif,svg,webp,JPG}",
+  { eager: true }
+);
+
 interface TeamMember {
   name: string;
   role: string;
@@ -15,56 +20,56 @@ const execs: TeamMember[] = [
     role: "Co-President",
     yearProgram: "4th Year | Management & Economics",
     bio: "Leading UTMFSA initiatives, community partnerships, and executive vision.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/marie.jpeg"
   },
   {
     name: "Raiven Verceles",
     role: "Co-President",
     yearProgram: "4th Year | Biology (Health Sci.) & Psychology (min)",
     bio: "Leading UTMFSA initiatives, community partnerships, and executive vision.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/raiven.jpeg"
   },
   {
     name: "Kate Abellanoza",
     role: "Vice President External",
     yearProgram: "3rd Year | Biology for Health Science, Chemistry, Biomedical Communications",
     bio: "Building local Mississauga sponsor partnerships and doing external club outreach.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/kate.jpeg"
   },
   {
     name: "Seraiya Lyakhloufi",
     role: "Vice President Internal",
     yearProgram: "4th Year | Molecular Biology, Forensic Science",
     bio: "Managing internal team operations, committee coordination, and member wellness.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/seraiya.jpg"
   },
   {
     name: "Audrey Imperial",
     role: "Vice President Events",
     yearProgram: "2nd Year | Biological Chemistry",
     bio: "Planning our flagship events, socials, and formal galas.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/audrey.jpeg"
   },
   {
     name: "Lineah Toribio",
     role: "Vice President Events",
     yearProgram: "3rd Year | Biology for Health Science, Psychology",
     bio: "Planning our flagship events, socials, and formal galas.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/lineah.jpeg"
   },
   {
     name: "Fiona Tangoan",
     role: "Director of Finance",
     yearProgram: "4th Year | Commerce",
     bio: "Overseeing budgeting, sponsorship funds, and the membership card program.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/fiona.jpeg"
   },
   {
     name: "Josh Villas",
     role: "Vice President Communications",
     yearProgram: "3rd Year | Computer Science & Applied Mathematics",
     bio: "Designing digital graphics, social media campaigns, photography, and site media.",
-    image: "/favicon.ico"
+    image: "/src/assets/execs/josh.png"
   },
   {
     name: "Samantha Jose",
@@ -146,19 +151,34 @@ for (let i = 0; i < execs.length; i += ITEMS_PER_SLIDE) {
           aria-roledescription="slide"
           aria-label={`Slide ${slideIdx + 1} of ${slides.length}`}
         >
-          {slideMembers.map((exec) => (
-            <div class="group relative flex flex-col justify-between p-5 rounded-2xl border border-border-subtle bg-bg-card shadow-2xs hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200">
-              <!-- Top Profile Info -->
-              <div class="flex items-start gap-4 mb-3">
-                <!-- Compact Avatar -->
-                <div class="h-14 w-14 sm:h-16 sm:w-16 rounded-xl bg-gradient-to-br from-primary-light via-bg-subtle to-secondary-light border border-border-subtle flex items-center justify-center p-2.5 shrink-0 shadow-2xs group-hover:scale-105 transition-transform">
-                  <img 
-                    src={exec.image || "/favicon.ico"} 
-                    alt={exec.name} 
-                    class="h-full w-full object-contain drop-shadow-xs" 
-                    loading="lazy"
-                  />
-                </div>
+          {slideMembers.map((exec) => {
+            const isCustomPhoto = exec.image && exec.image !== "/favicon.ico";
+            const imageAsset = exec.image ? execImages[exec.image]?.default : undefined;
+            const imgSrc = imageAsset ? imageAsset.src : (exec.image || "/favicon.ico");
+
+            return (
+              <div class="group relative flex flex-col justify-between p-5 rounded-2xl border border-border-subtle bg-bg-card shadow-2xs hover:shadow-md hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-200">
+                <!-- Top Profile Info -->
+                <div class="flex items-start gap-4 mb-3">
+                  <!-- Compact Avatar -->
+                  <div
+                    class:list={[
+                      "h-14 w-14 sm:h-16 sm:w-16 rounded-xl overflow-hidden border border-border-subtle flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition-transform",
+                      isCustomPhoto
+                        ? "bg-bg-subtle"
+                        : "bg-gradient-to-br from-primary-light via-bg-subtle to-secondary-light p-2.5"
+                    ]}
+                  >
+                    <img 
+                      src={imgSrc} 
+                      alt={exec.name} 
+                      class:list={[
+                        "h-full w-full",
+                        isCustomPhoto ? "object-cover object-center" : "object-contain drop-shadow-xs"
+                      ]} 
+                      loading="lazy"
+                    />
+                  </div>
 
                 <!-- Role, Name & Program -->
                 <div class="flex-1 min-w-0">
@@ -179,7 +199,8 @@ for (let i = 0; i < execs.length; i += ITEMS_PER_SLIDE) {
                 {exec.bio}
               </p>
             </div>
-          ))}
+          );
+        })}
         </div>
       ))}
     </div>
