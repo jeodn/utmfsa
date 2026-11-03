@@ -11,13 +11,13 @@ export const siteConfig = {
   shortName: "UTMFSA",
   description: "Celebrating Filipino culture, student community, signature events, and exclusive member perks at the University of Toronto Mississauga.",
   location: "University of Toronto Mississauga (UTM)",
-  
+
   // Centralized Navigation Links & Routes
   navLinks: [
     { label: "About Us", href: "/about-us", title: "About Us | UTMFSA", header: true, footer: true },
     { label: "Membership Card", href: "/membership", title: "Membership Card | UTMFSA", header: true, footer: true },
     { label: "Events", href: "/events", title: "Events | UTMFSA", header: true, footer: true },
-    { label: "Why Join?", href: "/join", title: "Why Join? | UTMFSA", header: true, footer: true },
+    { label: "Join", href: "/join", title: "Why Join? | UTMFSA", header: true, footer: true },
     { label: "Contact", href: "/contact-us", title: "Contact Us | UTMFSA", header: true, footer: true }
   ] as NavItem[],
 
@@ -27,13 +27,13 @@ export const siteConfig = {
     sponsorEmail: "utmfsa@utmsu.ca",
     instagramHandle: "@utmfsa",
     instagramUrl: "https://instagram.com/utmfsa",
-    discordUrl: "https://discord.gg/utmfsa",
+    discordUrl: "https://discord.gg/8ZsxMnmMy",
   },
 
   // Centralized Google Form & Application Links
   links: {
-    generalMemberForm: "https://forms.google.com/your-general-member-form",
-    execApplicationForm: "https://forms.google.com/your-exec-application-form",
+    generalMemberForm: "https://forms.gle/ZecQfvDgyW71862F6",
+    execApplicationForm: "https://docs.google.com/forms/d/e/1FAIpQLSdP4YATHRzMRB90l876i_yKdUrWM10VNhAMCIrX0rwygcunKw/viewform?usp=preview",
     sponsorDeckUrl: "/contact-us?type=sponsor",
   }
 };

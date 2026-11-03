@@ -4,7 +4,7 @@ import Icon from "./Icon.astro";
 
 const sponsorImages = import.meta.glob<{ default: ImageMetadata }>(
   "/src/assets/sponsors/*.{jpeg,jpg,png,gif,svg,webp}",
-  { eager: true }
+  { eager: true },
 );
 
 interface SponsorItem {
@@ -25,66 +25,72 @@ const sponsors: SponsorItem[] = [
     name: "Chatime UTM",
     category: "Boba & Teas",
     discount: "10% Off",
-    description: "Exclusive discount on all regular-priced bubble teas and specialty drinks at local Mississauga Chatime locations.",
+    description:
+      "Exclusive discount on all regular-priced bubble teas and specialty drinks at local Mississauga Chatime locations.",
     perks: ["10% off drinks", "Free size upgrade on member birthdays"],
     location: "Mississauga Locations",
     imageFileName: "chatime.svg",
-    icon: "sparkles"
+    icon: "sparkles",
   },
   {
     id: "manila-bakes",
     name: "Grotto",
     category: "Bakery & Food",
     discount: "Special Perk",
-    description: "Authentic Filipino baked goods, pandesal, and specialty desserts with exclusive member combo pricing.",
+    description:
+      "Authentic Filipino baked goods, pandesal, and specialty desserts with exclusive member combo pricing.",
     perks: ["15% off orders over $20", "Exclusive combo deals"],
     location: "Mississauga",
     imageFileName: "grotto.png",
-    icon: "shoppingBag"
+    icon: "shoppingBag",
   },
   {
     id: "tagpuan",
     name: "Tagpuan Filipino Restaurant",
     category: "Food & Drinks",
     discount: "15% Off",
-    description: "Traditional silog meals, adobo, and street food favorites for UTMFSA cardholders.",
+    description:
+      "Traditional silog meals, adobo, and street food favorites for UTMFSA cardholders.",
     perks: ["15% off dine-in and takeout", "Special student meal combos"],
     location: "Mississauga",
     imageFileName: "tagpuan.png",
-    icon: "badge"
+    icon: "badge",
   },
   {
     id: "thirstea",
     name: "Thirstea Teatime",
     category: "Boba & Teas",
     discount: "Free Topping",
-    description: "Enjoy a free topping of your choice (boba, jelly, egg pudding) with any large tea purchase.",
+    description:
+      "Enjoy a free topping of your choice (boba, jelly, egg pudding) with any large tea purchase.",
     perks: ["Free topping per drink", "10% off food menu items"],
     location: "Near UTM Campus",
     imageFileName: "thirstea.png",
-    icon: "badge"
+    icon: "badge",
   },
   {
     id: "trapped",
     name: "TRAPPED Escape Room",
     category: "Entertainment",
     discount: "10% Off",
-    description: "Immersive escape rooms and team puzzle experiences in Mississauga for UTMFSA members.",
+    description:
+      "Immersive escape rooms and team puzzle experiences in Mississauga for UTMFSA members.",
     perks: ["10% off group bookings", "Free extra clue on hard rooms"],
     location: "Dundas St W, Mississauga",
     imageFileName: "trapped.png",
-    icon: "badge"
+    icon: "badge",
   },
   {
     id: "utmsu",
     name: "UTM Student Union (UTMSU)",
     category: "Campus Partner",
     discount: "Campus Support",
-    description: "Official campus student union support, event sponsorship, and student funding partner.",
+    description:
+      "Official campus student union support, event sponsorship, and student funding partner.",
     perks: ["Campus venue access", "Student grant partnerships"],
     location: "UTM Student Centre",
-    icon: "users"
-  }
+    icon: "users",
+  },
 ];
 ---
 
@@ -93,7 +99,9 @@ const sponsors: SponsorItem[] = [
     <!-- Header -->
     <div class="text-center max-w-3xl mx-auto mb-12">
       <span class="section-eyebrow">MEMBER PERKS & DISCOUNTS</span>
-      <h2 class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-4">
+      <h2
+        class="text-3xl sm:text-4xl font-headline font-bold text-text-main tracking-tight mb-4"
+      >
         Sponsors & Benefits
       </h2>
       <p class="text-text-muted text-base sm:text-lg">
@@ -102,48 +110,58 @@ const sponsors: SponsorItem[] = [
     </div>
 
     <!-- Coming Soon State -->
-    <div class="max-w-3xl mx-auto rounded-3xl border border-border-subtle bg-bg-card p-10 sm:p-14 text-center shadow-xs mb-16 relative overflow-hidden">
+    <div
+      class="max-w-3xl mx-auto rounded-3xl border border-border-subtle bg-bg-card p-10 sm:p-14 text-center shadow-xs mb-16 relative overflow-hidden"
+    >
       <div class="relative z-10 flex flex-col items-center">
-        <div class="h-16 w-16 rounded-2xl bg-primary-light text-primary flex items-center justify-center mb-6 shadow-2xs">
+        <div
+          class="h-16 w-16 rounded-2xl bg-primary-light text-primary flex items-center justify-center mb-6 shadow-2xs"
+        >
           <Icon name="sparkles" size={32} />
         </div>
-        
-        <span class="inline-block px-3.5 py-1 rounded-full bg-secondary-light text-secondary text-xs font-bold tracking-wider uppercase mb-4 border border-secondary/20">
+
+        <span
+          class="inline-block px-3.5 py-1 rounded-full bg-secondary-light text-secondary text-xs font-bold tracking-wider uppercase mb-4 border border-secondary/20"
+        >
           Coming Soon
         </span>
-        
-        <h3 class="text-2xl sm:text-3xl font-headline font-bold text-text-main mb-3">
+
+        <h3
+          class="text-2xl sm:text-3xl font-headline font-bold text-text-main mb-3"
+        >
           2026–2027 Partner Deals & Perks
         </h3>
-        
-        <p class="text-text-muted text-base sm:text-lg max-w-xl leading-relaxed mb-8">
-          We are currently partnering with local Mississauga restaurants, cafes, boba shops, and entertainment spots. Stay tuned for the full announcement of exclusive member discounts!
-        </p>
 
-        <a 
-          href="/join" 
-          class="btn-primary text-sm px-7 py-3 shadow-md"
+        <p
+          class="text-text-muted text-base sm:text-lg max-w-xl leading-relaxed mb-8"
         >
-          <span>Get Your Member's Card</span>
-          <Icon name="arrowRight" size={16} />
-        </a>
+          We are currently partnering with local Mississauga restaurants, cafes,
+          and entertainment spots. Stay tuned for the full
+          announcement of exclusive member discounts!
+        </p>
       </div>
     </div>
 
     <!-- Sponsor Outreach Callout Box: "Want to get in touch with us?" -->
-    <div class="rounded-3xl border border-primary/20 bg-gradient-to-br from-primary-light via-bg-card to-bg-subtle p-8 sm:p-12 text-text-main shadow-md">
+    <div
+      class="rounded-3xl border border-primary/20 bg-gradient-to-br from-primary-light via-bg-card to-bg-subtle p-8 sm:p-12 text-text-main shadow-md"
+    >
       <div class="flex flex-col md:flex-row items-center justify-between gap-8">
         <div class="max-w-2xl text-center md:text-left">
           <span class="section-eyebrow">PARTNERSHIP OPPORTUNITIES</span>
-          <h3 class="text-2xl sm:text-3xl font-headline font-bold text-text-main mb-3">
+          <h3
+            class="text-2xl sm:text-3xl font-headline font-bold text-text-main mb-3"
+          >
             Want to partner with us?
           </h3>
           <p class="text-text-muted text-base leading-relaxed">
-            Connect your brand directly with hundreds of UTM students, sponsor flagship cultural events, and feature your exclusive deals on our platform!
+            Connect your brand directly with hundreds of UTM students, sponsor
+            flagship cultural events, and feature your exclusive deals on our
+            platform!
           </p>
         </div>
-        <a 
-          href="/contact-us?type=sponsor" 
+        <a
+          href="/contact-us?type=sponsor"
           class="btn-primary text-base px-8 py-3.5 shadow-lg shrink-0"
         >
           <span>Become a Sponsor</span>

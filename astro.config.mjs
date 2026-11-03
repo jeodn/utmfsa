@@ -14,6 +14,14 @@ export default defineConfig({
   integrations: [icon()],
   vite: {
     plugins: [tailwindcss()],
+    optimizeDeps: {
+      exclude: ['astro:content'],
+    },
+    ssr: {
+      optimizeDeps: {
+        exclude: ['astro:content'],
+      },
+    },
   },
 });
 
